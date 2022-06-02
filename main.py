@@ -1,7 +1,7 @@
 import xml.etree.cElementTree as ET
 from datetime import datetime
 import json
-with open('URLA-EDsmith.json') as urla_json:
+with open('./resources/URLA-EDsmith.json') as urla_json:
     data = dict(json.load(urla_json))
 
 
@@ -29,22 +29,29 @@ liabilities = ET.SubElement(deal, 'LIABILITIES')
 
 
 def convertToXml():
-    sectionOne()
-    sectionThree()
-    sectionFour()
-    tree = ET.ElementTree(root)
-    tree.write('URLA-edsmith.xml', encoding='utf-8', xml_declaration=True)
-
-# Section 1 JSON TO XML
-def sectionOne():
-    borrower = data['section_1']
     role = ET.SubElement(roles, 'ROLE')
     borrower_tag = ET.SubElement(role, 'BORROWER')
-    sectionOneA(borrower, role, borrower_tag)
+    declaration = ET.SubElement(borrower_tag, 'DECLARATION')
+    declaration_detail = ET.SubElement(declaration, 'DECLARATION_DETAIL')
+
+    sectionOne(role, borrower_tag, declaration_detail)
+    sectionThree()
+    sectionFour()
+    sectionFive(declaration_detail)
+    tree = ET.ElementTree(root)
+    tree.write('./resources/URLA-edsmith.xml',
+               encoding='utf-8', xml_declaration=True)
+
+# Section 1 JSON TO XML
+
+
+def sectionOne(role, borrower_tag, declaration_detail):
+    borrower = data['section_1']
+    sectionOneA(borrower, declaration_detail, role, borrower_tag)
     sectionOneBandE(borrower, borrower_tag)
 
 
-def sectionOneA(borrower, role, borrower_tag):
+def sectionOneA(borrower, role, borrower_tag, declaration_detail):
     borrower_contact_points = {
         'Home': borrower['borrower_home_phone'],
         'Mobile': borrower['borrower_cell_phone'],
@@ -72,7 +79,8 @@ def sectionOneA(borrower, role, borrower_tag):
     borrowerDetails(role, borrower_tag, borrower['borrower_birthdate'],
                     borrower['check_borrower_married'], borrower['borrower_dependents'], borrower['borrower_dependents_ages'])
 
-    borrowerDecralartionDetails(borrower_tag, borrower['borrower_citizenship'])
+    borrowerDecralartionDetails(
+        borrower_tag, declaration_detail, borrower['borrower_citizenship'])
     loanDetails(borrower['coborrower_count'])
 
 
@@ -101,9 +109,7 @@ def borrowerDetails(role, borrower_tag, birthDate, martialStatus, dependents, de
         borrower_dependents_count.text = '0'
 
 
-def borrowerDecralartionDetails(borrower_tag, citizenship):
-    declaration = ET.SubElement(borrower_tag, 'DECLARATION')
-    declaration_detail = ET.SubElement(declaration, 'DECLARATION_DETAIL')
+def borrowerDecralartionDetails(borrower_tag, declaration_detail, citizenship):
     residency_type = ET.SubElement(
         declaration_detail, 'CitizenshipResidencyType')
     residency_type.text = citizenship
@@ -348,8 +354,6 @@ def borrowerCurrentIncome(borrower_tag, income_details):
 # def sectionTwo()  JSON NOT COMPLETE YET
 
 
-
-
 # Section 3 JSON TO XML
 def sectionThree():
     financial_info = data['section_3']
@@ -452,15 +456,15 @@ def borrowerPropertyValuation(property_tag, property_valuation):
                   'PropertyValuationAmount').text = property_valuation
 
 
-
 # Section 4 JSON TO XML
 def sectionFour():
     loanAndPropertyInfo = data['section_4']
     loan_tag = ET.SubElement(loans, 'LOAN')
 
-    sectionFourA(loan_tag,loanAndPropertyInfo)
+    sectionFourA(loan_tag, loanAndPropertyInfo)
 
-def sectionFourA(loan_tag,loanAndPropertyInfo):
+
+def sectionFourA(loan_tag, loanAndPropertyInfo):
     loan_purpose = loanAndPropertyInfo['borrower_property_loan_purpose']
     collaterals_tag = ET.SubElement(deal, 'COLLATERALS')
     collateral_tag = ET.SubElement(collaterals_tag, 'COLLATERAL')
@@ -478,38 +482,93 @@ def sectionFourA(loan_tag,loanAndPropertyInfo):
 
     property_want_to_buy_details = {
         'FinancedUnitCount': loanAndPropertyInfo['borrower_property_address_number_of_units'],
-        'PropertyEstimatedValueAmount' : loanAndPropertyInfo['borrower_property_value'],
-        'PropertyUsageType' : loanAndPropertyInfo['borrower_property_occupancy'],
-        'PropertyMixedUsageIndicator' : 'false',
-        'ConstructionMethodType' : 'SiteBuilt' if loanAndPropertyInfo['borrower_property_manufactured_home'] == 'No' else 'Manufactured'
+        'PropertyEstimatedValueAmount': loanAndPropertyInfo['borrower_property_value'],
+        'PropertyUsageType': loanAndPropertyInfo['borrower_property_occupancy'],
+        'PropertyMixedUsageIndicator': 'false',
+        'ConstructionMethodType': 'SiteBuilt' if loanAndPropertyInfo['borrower_property_manufactured_home'] == 'No' else 'Manufactured'
     }
-    termsOfLoan(loan_tag,loan_purpose)
-    propertyWantToBuyAddress(subject_property_tag,property_want_to_buy_address)
-    propertyWantToBuyDetails(subject_property_tag,property_want_to_buy_details)
+    termsOfLoan(loan_tag, loan_purpose)
+    propertyWantToBuyAddress(subject_property_tag,
+                             property_want_to_buy_address)
+    propertyWantToBuyDetails(subject_property_tag,
+                             property_want_to_buy_details)
+    propertyWantToBuyValuationDetails(
+        subject_property_tag, property_want_to_buy_details['PropertyEstimatedValueAmount'])
 
 
-def termsOfLoan(loan_tag,loanPurpose):
+def termsOfLoan(loan_tag, loanPurpose):
     terms_of_loan_tag = ET.SubElement(loan_tag, 'TERMS_OF_LOAN')
-    ET.SubElement(terms_of_loan_tag,'LoanPurposeType').text = loanPurpose
+    ET.SubElement(terms_of_loan_tag, 'LoanPurposeType').text = loanPurpose
 
 
-def propertyWantToBuyAddress(subject_property_tag,property_want_to_buy_address):
+def propertyWantToBuyAddress(subject_property_tag, property_want_to_buy_address):
     address_tag = ET.SubElement(subject_property_tag, 'ADDRESS')
     for key, value in property_want_to_buy_address.items():
         if value:
             ET.SubElement(address_tag, key).text = value
 
 
-def propertyWantToBuyDetails(subject_property_tag,property_want_to_buy_details ):
-    property_want_to_buy_details_tag = ET.SubElement(subject_property_tag, 'PROPERTY_DETAILS')
+def propertyWantToBuyDetails(subject_property_tag, property_want_to_buy_details):
+    property_want_to_buy_details_tag = ET.SubElement(
+        subject_property_tag, 'PROPERTY_DETAILS')
     for key, value in property_want_to_buy_details.items():
         if value:
             ET.SubElement(property_want_to_buy_details_tag, key).text = value
 
 
+def propertyWantToBuyValuationDetails(subject_property_tag, property_value):
+    property_valuations_tag = ET.SubElement(
+        subject_property_tag, 'PROPERTY_VALUATIONS')
+    property_valuation_tag = ET.SubElement(
+        property_valuations_tag, 'PROPERTY_VALUATION')
+    property_valuation_detail_tag = ET.SubElement(
+        property_valuation_tag, 'PROPERTY_VALUATION_DETAIL')
+    ET.SubElement(property_valuation_detail_tag,
+                  'PropertyValuationAmount').text = property_value
 
 
+# Section 5 JSON TO XML
 
+def YesNOtoBoolean(value):
+    return 'true' if value == 'Yes' else 'false'
+
+
+def sectionFive(declaration_detail):
+    declarations = data['section_5']
+    sectionFiveA(declaration_detail, declarations)
+    sectionFiveB(declaration_detail, declarations)
+
+def sectionFiveA(declaration_detail,declarations):
+    # YES cases not included
+    ET.SubElement(declaration_detail, 'IntentToOccupyType').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_A_primary_residence'])
+    declaration_extension_tag = ET.SubElement(declaration_detail, 'EXTENSION')
+    extension_other_tag = ET.SubElement(declaration_extension_tag, 'OTHER')
+    ULAD_declartion_detail_tag = ET.SubElement(
+        extension_other_tag, 'ULAD:DECLARATION_DETAIL_EXTENSION')
+    ET.SubElement(ULAD_declartion_detail_tag, 'ULAD:SpecialBorrowerSellerRelationshipIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_B_purchase_transaction']
+    )
+    ET.SubElement(declaration_detail, 'UndisclosedBorrowedFundsIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_C_borrowing_money'])
+    ET.SubElement(declaration_detail, 'UndisclosedMortgageApplicationIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_D_applying_for_mortgage_loan'])
+    ET.SubElement(declaration_detail, 'UndisclosedCreditApplicationIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_D_applying_for_new_credit'])
+    ET.SubElement(declaration_detail, 'PropertyProposedCleanEnergyLienIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_E_property_subject_to_lien'])
+
+def sectionFiveB(declaration_detail,declarations):
+    # YES cases not included
+
+    ET.SubElement(declaration_detail,'UndisclosedComakerOfNoteIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_F_co-signer_or_guarantor'])
+    ET.SubElement(declaration_detail,'OutstandingJudgmentsIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_G_any_outstanding'])
+    ET.SubElement(declaration_detail,'PresentlyDelinquentIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_H_currently_delinquent'])
+    ET.SubElement(declaration_detail,'PartyToLawsuitIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_I_are_you_a_party'])
+    ET.SubElement(declaration_detail,'PriorPropertyDeedInLieuConveyedIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_J_conveyed_title'])
+    ET.SubElement(declaration_detail,'PriorPropertyShortSaleCompletedIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_K_completed_pre-foreclosure'])
+    ET.SubElement(declaration_detail,'PriorPropertyForeclosureCompletedIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_L_property_foreclosed'])
+    ET.SubElement(declaration_detail,'BankruptcyIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_M_declared_bankruptcy'])
 
 
 convertToXml()
