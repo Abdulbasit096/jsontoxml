@@ -17,7 +17,7 @@
                                 <CONTACT_POINTS>
                                     <CONTACT_POINT>
                                         <CONTACT_POINT_TELEPHONE>
-                                            <ContactPointTelephoneValue>(707)334-7059
+                                            <ContactPointTelephoneValue>(714)469-1089
                                             </ContactPointTelephoneValue>
                                         </CONTACT_POINT_TELEPHONE>
                                         <CONTACT_POINT_DETAIL>
@@ -26,14 +26,15 @@
                                     </CONTACT_POINT>
                                     <CONTACT_POINT>
                                         <CONTACT_POINT_EMAIL>
-                                            <ContactPointEmailValue>edward.smith8789@sbcglobal.net
+                                            <ContactPointEmailValue>john.alduenda@yahoo.com
                                             </ContactPointEmailValue>
                                         </CONTACT_POINT_EMAIL>
                                     </CONTACT_POINT>
                                 </CONTACT_POINTS>
                                 <NAME>
-                                    <FirstName>Edward</FirstName>
-                                    <LastName>Everett Smith</LastName>
+                                    <FirstName>Johnny</FirstName>
+                                    <LastName>Alduenda
+                                    </LastName>
                                 </NAME>
                             </INDIVIDUAL>
                             <ROLES>
@@ -44,7 +45,7 @@
                                                 <ROLE_DETAIL>
                                                     <PartyRoleType>Borrower</PartyRoleType>
                                                 </ROLE_DETAIL>
-                                                <IntentToOccupyType>false</IntentToOccupyType>
+                                                <IntentToOccupyType>true</IntentToOccupyType>
                                                 <EXTENSION>
                                                     <OTHER>
                                                         <ULAD:DECLARATION_DETAIL_EXTENSION>
@@ -67,109 +68,31 @@
                                             </DECLARATION_DETAIL>
                                         </DECLARATION>
                                         <CitizenshipResidencyType>U.S. Citizen</CitizenshipResidencyType>
-                                        <EMPLOYERS>
-                                            <EMPLOYER>
-                                                <ADDRESS>
-                                                    <AddressLineText>10509 Vista Sorrento Pkwy
-                                                    </AddressLineText>
-                                                    <CityName>San dieao
-                                                    </CityName>
-                                                    <StateCode>CA
-                                                    </StateCode>
-                                                    <PostalCode>92121
-                                                    </PostalCode>
-                                                    <CountryCode>US
-                                                    </CountryCode>
-                                                </ADDRESS>
-                                                <LEGAL_ENTITY>
-                                                    <LEGAL_ENTITY_DETAIL>
-                                                        <FullName>C2 Financial Corp
-                                                        </FullName>
-                                                    </LEGAL_ENTITY_DETAIL>
-                                                    <CONTACTS>
-                                                        <CONTACT>
-                                                            <CONTACT_POINTS>
-                                                                <CONTACT_POINT>
-                                                                    <CONTACT_POINT_TELEPHONE>
-                                                                        <ContactPointTelephoneValue>(707)334-7059
-                                                                        </ContactPointTelephoneValue>
-                                                                    </CONTACT_POINT_TELEPHONE>
-                                                                </CONTACT_POINT>
-                                                            </CONTACT_POINTS>
-                                                        </CONTACT>
-                                                    </CONTACTS>
-                                                </LEGAL_ENTITY>
-                                                <INDIVIDUAL>
-                                                    <FullName>C2 Financial Corp
-                                                    </FullName>
-                                                    <CONTACTS>
-                                                        <CONTACT>
-                                                            <CONTACT_POINTS>
-                                                                <CONTACT_POINT>
-                                                                    <CONTACT_POINT_TELEPHONE>
-                                                                        <ContactPointTelephoneValue>(707)334-7059
-                                                                        </ContactPointTelephoneValue>
-                                                                    </CONTACT_POINT_TELEPHONE>
-                                                                </CONTACT_POINT>
-                                                            </CONTACT_POINTS>
-                                                        </CONTACT>
-                                                    </CONTACTS>
-                                                </INDIVIDUAL>
-                                                <EMPLOYMENT>
-                                                    <EmploymentPositionDescription>Loan Officer
-                                                    </EmploymentPositionDescription>
-                                                    <EmploymentStartDate>2019-04-22</EmploymentStartDate>
-                                                    <EmploymentTimeInLineOfWorkMonthsCount>264</EmploymentTimeInLineOfWorkMonthsCount>
-                                                    <SpecialBorrowerEmployerRelationshipIndicator>false</SpecialBorrowerEmployerRelationshipIndicator>
-                                                    <EmploymentBorrowerSelfEmployedIndicator>false</EmploymentBorrowerSelfEmployedIndicator>
-                                                </EMPLOYMENT>
-                                            </EMPLOYER>
-                                        </EMPLOYERS>
-                                        <CURRENT_INCOME>
-                                            <CURRENT_INCOME_ITEMS>
-                                                <CURRENT_INCOME_ITEM>
-                                                    <CURRENT_INCOME_ITEM_DETAILS>
-                                                        <IncomeType>Commissions</IncomeType>
-                                                        <CurrentIncomeMonthlyTotalAmount>2,200.00
-                                                        </CurrentIncomeMonthlyTotalAmount>
-                                                        <EmploymentIncomeIndicator>true</EmploymentIncomeIndicator>
-                                                    </CURRENT_INCOME_ITEM_DETAILS>
-                                                </CURRENT_INCOME_ITEM>
-                                                <CURRENT_INCOME_ITEM>
-                                                    <CURRENT_INCOME_ITEM_DETAILS>
-                                                        <IncomeType>Other</IncomeType>
-                                                        <CurrentIncomeMonthlyTotalAmount>3,296.22
-                                                        </CurrentIncomeMonthlyTotalAmount>
-                                                        <EmploymentIncomeIndicator>true</EmploymentIncomeIndicator>
-                                                    </CURRENT_INCOME_ITEM_DETAILS>
-                                                </CURRENT_INCOME_ITEM>
-                                            </CURRENT_INCOME_ITEMS>
-                                        </CURRENT_INCOME>
                                     </BORROWER>
                                     <RESIDENCE>
                                         <RESIDENCES>
                                             <ADDRESS>
-                                                <AddressLineText>3660 Vista Campana N
+                                                <AddressLineText>16023 MOUNT PRIETO CIR
                                                 </AddressLineText>
-                                                <CityName>Oceanside
+                                                <CityName>FOUNTAIN VALLEY
                                                 </CityName>
                                                 <CountryCode>US
                                                 </CountryCode>
-                                                <PostalCode>92057
+                                                <PostalCode>92708
                                                 </PostalCode>
                                                 <StateCode>CA
                                                 </StateCode>
                                             </ADDRESS>
                                             <RESIDENCE_DETAIL>
                                                 <BorrowerResidencyBasisType>Own</BorrowerResidencyBasisType>
-                                                <BorrowerResidencyDurationMonthsCount>42</BorrowerResidencyDurationMonthsCount>
+                                                <BorrowerResidencyDurationMonthsCount>540</BorrowerResidencyDurationMonthsCount>
                                                 <BorrowerResidencyType>Current</BorrowerResidencyType>
                                             </RESIDENCE_DETAIL>
                                         </RESIDENCES>
                                     </RESIDENCE>
                                     <BORROWER_DETAIL>
                                         <SelfDeclaredMilitaryServiceIndicator>false</SelfDeclaredMilitaryServiceIndicator>
-                                        <BorrowerBirthDate>1936-05-24</BorrowerBirthDate>
+                                        <BorrowerBirthDate>1940-08-08</BorrowerBirthDate>
                                         <MaritalStatusType>Married</MaritalStatusType>
                                         <DependentCount>0</DependentCount>
                                     </BORROWER_DETAIL>
@@ -177,14 +100,14 @@
                             </ROLES>
                             <ADDRESSES>
                                 <ADDRESS>
-                                    <AddressLineText>3660 Vista Campana N
+                                    <AddressLineText>16023 MOUNT PRIETO CIR
                                     </AddressLineText>
                                     <AddressType>Mailing</AddressType>
-                                    <CityName>Oceanside
+                                    <CityName>FOUNTAIN VALLEY
                                     </CityName>
                                     <CountryCode>US
                                     </CountryCode>
-                                    <PostalCode>92057
+                                    <PostalCode>92708
                                     </PostalCode>
                                     <StateCode>CA
                                     </StateCode>
@@ -193,7 +116,7 @@
                             <TAX_PAYER_IDENTIFIERS>
                                 <TAX_PAYER_IDENTIFIER>
                                     <TaxpayerIdentifierType>SocialSecurityNumber</TaxpayerIdentifierType>
-                                    <TaxpayerIdentifierValue>5624290361
+                                    <TaxpayerIdentifierValue>551548637
                                     </TaxpayerIdentifierValue>
                                 </TAX_PAYER_IDENTIFIER>
                             </TAX_PAYER_IDENTIFIERS>
@@ -204,25 +127,25 @@
                             <OWNED_PROPERTY>
                                 <PROPERTY>
                                     <ADDRESS>
-                                        <AddressLineText>1728 RIO PENASCO DR
+                                        <AddressLineText>16023 MOUNT PRIETO CIR
                                         </AddressLineText>
-                                        <CityName>HASLET 0
+                                        <CityName>FOUNTAIN VALLEY
                                         </CityName>
-                                        <PostalCode>76052
+                                        <PostalCode>92708
                                         </PostalCode>
-                                        <StateCode>TX
+                                        <StateCode>A Z
                                         </StateCode>
                                     </ADDRESS>
                                     <PROPERTY_DETAIL>
-                                        <PropertyEstimatedValueAmount>415,000.00
+                                        <PropertyEstimatedValueAmount>90,000.00
                                         </PropertyEstimatedValueAmount>
-                                        <PropertyUsageType>Investment
+                                        <PropertyUsageType>-rimaryResidence
                                         </PropertyUsageType>
                                     </PROPERTY_DETAIL>
                                     <PROPERTY_VALUATIONS>
                                         <PROPERTY_VALUATION>
                                             <PROPERTY_VALUATION_DETAIL>
-                                                <PropertyValuationAmount>415,000.00
+                                                <PropertyValuationAmount>90,000.00
                                                 </PropertyValuationAmount>
                                             </PROPERTY_VALUATION_DETAIL>
                                         </PROPERTY_VALUATION>
@@ -230,13 +153,11 @@
                                 </PROPERTY>
                                 <OWNED_PROPERTY_DETAILS>
                                     <OwnedPropertySubjectIndicator>true</OwnedPropertySubjectIndicator>
-                                    <OwnedPropertyDispositionStatusType>Retained
+                                    <OwnedPropertyDispositionStatusType>netained
                                     </OwnedPropertyDispositionStatusType>
-                                    <OwnedPropertyMaintenanceExpenseAmount>430.91
+                                    <OwnedPropertyMaintenanceExpenseAmount>022.00 0 — |
                                     </OwnedPropertyMaintenanceExpenseAmount>
-                                    <OwnedPropertyRentalIncomeGrossAmount>0.00
-                                    </OwnedPropertyRentalIncomeGrossAmount>
-                                    <OwnedPropertyLienUPBAmount>223,217.55
+                                    <OwnedPropertyLienUPBAmount>85,743.00
                                     </OwnedPropertyLienUPBAmount>
                                 </OWNED_PROPERTY_DETAILS>
                             </OWNED_PROPERTY>
@@ -259,18 +180,20 @@
                         <LIABILITY>
                             <LIABILITY_DETAILS>
                                 <LiabilityPaymentIncludesTaxesInsuranceIndicator>false</LiabilityPaymentIncludesTaxesInsuranceIndicator>
-                                <LiabilityAccountIdentifier>580033968
+                                <LiabilityAccountIdentifier>46518919734
                                 </LiabilityAccountIdentifier>
                                 <LiabilityType>MortgageLoan</LiabilityType>
-                                <LiabilityMonthlyPaymentAmount>1,463.00
+                                <LiabilityMonthlyPaymentAmount>1,542.00 |
                                 </LiabilityMonthlyPaymentAmount>
-                                <LiabilityUnpaidBalanceAmount>223,217.55
+                                <LiabilityUnpaidBalanceAmount>85,743.00
                                 </LiabilityUnpaidBalanceAmount>
+                                <MortgageType>ynventional | g
+                                </MortgageType>
                                 <LiabilityPayoffStatusIndicato>false</LiabilityPayoffStatusIndicato>
                             </LIABILITY_DETAILS>
                             <LIABILITY_HOLDER>
                                 <NAME>
-                                    <FullName>NEW RES-SHE
+                                    <FullName>JPMCB HOME
                                     </FullName>
                                 </NAME>
                             </LIABILITY_HOLDER>
@@ -280,30 +203,30 @@
                         <COLLATERAL>
                             <SUBJECT_PROPERTY>
                                 <ADDRESS>
-                                    <AddressLineText>1728 RIO PENASCO DR
+                                    <AddressLineText>16023 MOUNT PRIETO CIR
                                     </AddressLineText>
-                                    <CityName>HASLET
+                                    <CityName>FOUNTAIN VALLEY
                                     </CityName>
-                                    <CountryName>TARRANT
+                                    <CountryName>ORANGE
                                     </CountryName>
-                                    <PostalCode>76052
+                                    <PostalCode>92708
                                     </PostalCode>
-                                    <StateCode>TX
+                                    <StateCode>CA
                                     </StateCode>
                                 </ADDRESS>
                                 <PROPERTY_DETAILS>
-                                    <FinancedUnitCount>1
+                                    <FinancedUnitCount>ee
                                     </FinancedUnitCount>
-                                    <PropertyEstimatedValueAmount>415,000.00
+                                    <PropertyEstimatedValueAmount>750,000.00
                                     </PropertyEstimatedValueAmount>
-                                    <PropertyUsageType>Investment Property</PropertyUsageType>
+                                    <PropertyUsageType>Primary Residence</PropertyUsageType>
                                     <PropertyMixedUsageIndicator>false</PropertyMixedUsageIndicator>
                                     <ConstructionMethodType>SiteBuilt</ConstructionMethodType>
                                 </PROPERTY_DETAILS>
                                 <PROPERTY_VALUATIONS>
                                     <PROPERTY_VALUATION>
                                         <PROPERTY_VALUATION_DETAIL>
-                                            <PropertyValuationAmount>415,000.00
+                                            <PropertyValuationAmount>750,000.00
                                             </PropertyValuationAmount>
                                         </PROPERTY_VALUATION_DETAIL>
                                     </PROPERTY_VALUATION>

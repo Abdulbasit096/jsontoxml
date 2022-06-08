@@ -1,7 +1,10 @@
 import xml.etree.cElementTree as ET
 from datetime import datetime
 import json
-with open('./resources/URLA-EDsmith.json') as urla_json:
+
+case_id = "URLA-Edsmith"
+
+with open(f'./resources/{case_id}.json') as urla_json:
     data = dict(json.load(urla_json))
 
 
@@ -38,9 +41,15 @@ def convertToXml():
     sectionThree()
     sectionFour()
     sectionFive(declaration_detail)
+    # sectionEight(borrower_tag)
     tree = ET.ElementTree(root)
-    tree.write('./resources/URLA-edsmith.xml',
+    tree.write(f'./resources/{case_id}.xml',
                encoding='utf-8', xml_declaration=True)
+
+
+def YesNOtoBoolean(value):
+    return 'true' if value == 'Yes' else 'false'
+
 
 # Section 1 JSON TO XML
 
@@ -89,6 +98,11 @@ def borrowerDetails(role, borrower_tag, birthDate, martialStatus, dependents, de
     party_role_type = ET.SubElement(role_detail, 'PartyRoleType')
     party_role_type.text = 'Borrower'
     borrower_details = ET.SubElement(borrower_tag, 'BORROWER_DETAIL')
+    # This line includes a data point from section 7
+    ET.SubElement(borrower_details, 'SelfDeclaredMilitaryServiceIndicator').text = YesNOtoBoolean(
+        data['section_7']['check_borrower_US_armed_forces_service']
+    )
+    # Yes case not included
     borrower_birthdate = ET.SubElement(borrower_details, 'BorrowerBirthDate')
     borrower_birthdate_value = birthDate.strip()
     borrower_birthdate.text = datetime.strptime(
@@ -241,11 +255,14 @@ def addresses(borrower_mailing_address, tag_to_insert_in):
 
 
 def sectionOneBandE(borrower, borrower_tag):
-    borrowerEmployer(borrower, borrower_tag)
+    try:
+        borrower_employer_name = borrower['borrower_employer_name']
+        borrowerEmployer(borrower, borrower_tag, borrower_employer_name)
+    except KeyError:
+        pass
 
 
-def borrowerEmployer(borrower, borrower_tag):
-    borrower_employer_name = borrower['borrower_employer_name']
+def borrowerEmployer(borrower, borrower_tag, borrower_employer_name):
     borrower_employer_phone = borrower['borrower_employer_phone']
     borrower_employer_address = {
         'AddressLineText': borrower['borrower_employer_address_street'],
@@ -305,6 +322,11 @@ def employerAddress(employer_address_tag, borrower_employer_address):
         if value:
             ET.SubElement(employer_address_tag, key).text = value
 
+def borrowerEmploymentDetails(employer_tag, employment_details):
+    employment_tag = ET.SubElement(employer_tag, 'EMPLOYMENT')
+    for key, value in employment_details.items():
+        if value:
+            ET.SubElement(employment_tag, key).text = value
 
 def employerDetails(parent_tag, child_tag, employer_name, employer_phone):
     employer_name_tag = ET.SubElement(child_tag, 'FullName')
@@ -320,13 +342,6 @@ def employerDetails(parent_tag, child_tag, employer_name, employer_phone):
     employer_contact_point_telephone_value_tag = ET.SubElement(
         employer_contact_point_telephone_tag, 'ContactPointTelephoneValue')
     employer_contact_point_telephone_value_tag.text = employer_phone
-
-
-def borrowerEmploymentDetails(employer_tag, employment_details):
-    employment_tag = ET.SubElement(employer_tag, 'EMPLOYMENT')
-    for key, value in employment_details.items():
-        if value:
-            ET.SubElement(employment_tag, key).text = value
 
 
 def borrowerCurrentIncome(borrower_tag, income_details):
@@ -474,7 +489,7 @@ def sectionFourA(loan_tag, loanAndPropertyInfo):
         'AddressLineText': loanAndPropertyInfo['borrower_property_address_street'],
         'AddressUnitIdentifier': loanAndPropertyInfo['borrower_property_address_unit_num'],
         'CityName': loanAndPropertyInfo['borrower_property_address_city'],
-        'CountryName': loanAndPropertyInfo['borrower_property_address_country'],
+        'CountryName': loanAndPropertyInfo['borrower_property_address_county'],
         'PostalCode': loanAndPropertyInfo['borrower_property_address_zip'],
         'StateCode': loanAndPropertyInfo['borrower_property_address_state']
 
@@ -529,16 +544,14 @@ def propertyWantToBuyValuationDetails(subject_property_tag, property_value):
 
 # Section 5 JSON TO XML
 
-def YesNOtoBoolean(value):
-    return 'true' if value == 'Yes' else 'false'
-
 
 def sectionFive(declaration_detail):
     declarations = data['section_5']
     sectionFiveA(declaration_detail, declarations)
     sectionFiveB(declaration_detail, declarations)
 
-def sectionFiveA(declaration_detail,declarations):
+
+def sectionFiveA(declaration_detail, declarations):
     # YES cases not included
     ET.SubElement(declaration_detail, 'IntentToOccupyType').text = YesNOtoBoolean(
         declarations['check_borrower_declaration_A_primary_residence'])
@@ -558,17 +571,85 @@ def sectionFiveA(declaration_detail,declarations):
     ET.SubElement(declaration_detail, 'PropertyProposedCleanEnergyLienIndicator').text = YesNOtoBoolean(
         declarations['check_borrower_declaration_E_property_subject_to_lien'])
 
-def sectionFiveB(declaration_detail,declarations):
+
+def sectionFiveB(declaration_detail, declarations):
     # YES cases not included
 
-    ET.SubElement(declaration_detail,'UndisclosedComakerOfNoteIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_F_co-signer_or_guarantor'])
-    ET.SubElement(declaration_detail,'OutstandingJudgmentsIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_G_any_outstanding'])
-    ET.SubElement(declaration_detail,'PresentlyDelinquentIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_H_currently_delinquent'])
-    ET.SubElement(declaration_detail,'PartyToLawsuitIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_I_are_you_a_party'])
-    ET.SubElement(declaration_detail,'PriorPropertyDeedInLieuConveyedIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_J_conveyed_title'])
-    ET.SubElement(declaration_detail,'PriorPropertyShortSaleCompletedIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_K_completed_pre-foreclosure'])
-    ET.SubElement(declaration_detail,'PriorPropertyForeclosureCompletedIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_L_property_foreclosed'])
-    ET.SubElement(declaration_detail,'BankruptcyIndicator').text = YesNOtoBoolean(declarations['check_borrower_declaration_M_declared_bankruptcy'])
+    ET.SubElement(declaration_detail, 'UndisclosedComakerOfNoteIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_F_co-signer_or_guarantor'])
+    ET.SubElement(declaration_detail, 'OutstandingJudgmentsIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_G_any_outstanding'])
+    ET.SubElement(declaration_detail, 'PresentlyDelinquentIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_H_currently_delinquent'])
+    ET.SubElement(declaration_detail, 'PartyToLawsuitIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_I_are_you_a_party'])
+    ET.SubElement(declaration_detail, 'PriorPropertyDeedInLieuConveyedIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_J_conveyed_title'])
+    ET.SubElement(declaration_detail, 'PriorPropertyShortSaleCompletedIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_K_completed_pre-foreclosure'])
+    ET.SubElement(declaration_detail, 'PriorPropertyForeclosureCompletedIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_L_property_foreclosed'])
+    ET.SubElement(declaration_detail, 'BankruptcyIndicator').text = YesNOtoBoolean(
+        declarations['check_borrower_declaration_M_declared_bankruptcy'])
+
+
+# Section  8 JSON TO XML
+def sectionEight(borrower_tag):
+    demographic_info = data['section_8']
+    government_monitoring_tag = ET.SubElement(
+        borrower_tag, 'GOVERNMENT_MONITORING')
+    government_monitoring_detail_tag = ET.SubElement(
+        government_monitoring_tag, 'GOVERNMENT_MONITORING_DETAIL')
+    hmda_ethnicity_origins_tag = ET.SubElement(
+        government_monitoring_detail_tag, 'HMDA_ETHNICITY_ORIGINS')
+    hmda_ethnicity_origin_tag = ET.SubElement(
+        government_monitoring_detail_tag, 'HMDA_ETHNICITY_ORIGIN')
+    hmda_races_tag = ET.SubElement(
+        government_monitoring_detail_tag, 'HMDA_RACES')
+    hmda_race_tag = ET.SubElement(hmda_races_tag, 'HMDA_RACE')
+    hmda_race_detail_tag = ET.SubElement(hmda_race_tag, 'HMDA_RACE_DETAIL')
+    # hmda_race_designations_tag = ET.SubElement(hmda_race_tag, 'HMDA_RACE_DESIGNATIONS')
+    # hmda_race_designation_tag = ET.SubElement(hmda_race_tag, 'HMDA_RACE_DESIGNATION')
+    # hmda_race_designation_extension_tag = ET.SubElement(hmda_race_designation_tag, 'EXTENSION')
+    # ulad_race_designation_extension_tag = ET.SubElement(hmda_race_designation_extension_tag, 'ULAD:HMDA_RACE_DESIGNATION')
+    government_monitoring_extension_tag = ET.SubElement(
+        government_monitoring_detail_tag, 'EXTENSION')
+    extension_other_tag = ET.SubElement(
+        government_monitoring_extension_tag, 'OTHER')
+    ulad_government_monitoring_extension_tag = ET.SubElement(
+        extension_other_tag, 'ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION')
+    ulad_ethnicities_tag = ET.SubElement(
+        ulad_government_monitoring_extension_tag, 'ULAD:HMDA_ETHNICITIES')
+    ular_ethnicity_tag = ET.SubElement(
+        ulad_ethnicities_tag, 'ULAD:HMDA_ETHNICITY')
+    ET.SubElement(government_monitoring_detail_tag,
+                  'HMDAEthnicityRefusalIndicator').text = 'false' if demographic_info['borrower_ethnicity'] else 'true'
+    ET.SubElement(government_monitoring_detail_tag,
+                  'HMDAGenderRefusalIndicator').text = 'false' if demographic_info['borrower_sex'] else 'true'
+    ET.SubElement(government_monitoring_detail_tag,
+                  'HMDARaceRefusalIndicator').text = 'false' if demographic_info['borrower_race'] else 'true'
+    ET.SubElement(government_monitoring_detail_tag, 'HMDAEthnicityCollectedBasedOnVisualObservationOrSurnameIndicator').text = YesNOtoBoolean(
+        demographic_info['borrower_ethnicity_based_on_visual_observation_or_surname']
+    )
+    ET.SubElement(government_monitoring_detail_tag, 'HMDAGenderCollectedBasedOnVisualObservationOrNameIndicator').text = YesNOtoBoolean(
+        demographic_info['borrower_sex_based_on_visual_observation_or_surname']
+    )
+    ET.SubElement(government_monitoring_detail_tag, 'HMDARaceCollectedBasedOnVisualObservationOrSurnameIndicator').text = YesNOtoBoolean(
+        demographic_info['borrower_race_based_on_visual_observation_or_surname']
+    )
+
+    # IF other is selected -- Not included
+    ET.SubElement(hmda_ethnicity_origins_tag,
+                  'HMDAEthnicityOriginType').text = demographic_info['borrower_hispanic_or_latino_subcategory']
+    # IF other is selected -- Not included
+    ET.SubElement(hmda_race_detail_tag,
+                  'HMDARaceType').text = demographic_info['borrower_race']
+
+    ET.SubElement(ulad_government_monitoring_extension_tag,
+                  'ULAD:HMDAGenderType').text = demographic_info['borrower_sex']
+    # IF other is selected -- Not included
+    ET.SubElement(ular_ethnicity_tag,
+                  'ULAD:HMDAEthnicityType').text = demographic_info['borrower_ethnicity']
 
 
 convertToXml()

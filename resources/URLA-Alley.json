@@ -1,0 +1,98 @@
+{
+   "header": {
+      "lender_name": "C2 Financial Corporation\n",
+      "loan_number": "1221588399\n",
+      "agency": ""
+   },
+   "section_1": {
+      "borrower_name": "Jacqueline Alley\n",
+      "borrower_alternate_names": "",
+      "borrower_social_security_number": "980-42-4549\n",
+      "borrower_birthdate": "01/10/1947\n",
+      "borrower_citizenship": "U.S. Citizen",
+      "borrower_type_of_credit": "Individual Credit",
+      "check_borrower_married": "Yes",
+      "borrower_dependents": "",
+      "borrower_dependents_ages": "",
+      "borrower_home_phone": "(209)274-6614\n",
+      "borrower_cell_phone": "",
+      "borrower_work_phone": "",
+      "borrower_email": "jacquelineasomhg@gmail.com\n",
+      "borrower_work_phone_Ext": "",
+      "borrower_mailing_address_street": "\u2014 9004 Nortn Park Dr\n",
+      "borrower_mailing_address_unit_num": "",
+      "borrower_mailing_address_city": "IONE\n",
+      "borrower_mailing_address_state": "CA\n",
+      "borrower_mailing_address_zip": "99640\n",
+      "borrower_mailing_address_country": "US OO\n",
+      "borrower_address_tenure_years": "8\n",
+      "borrower_address_tenure_months": "",
+      "borrower_address_housing": "Own"
+   },
+   "section_2": {
+      "borrower_total_amount_from_assets": "",
+      "borrower_liabilities_monthly_payments": "35.00",
+      "borrower_liabilities_unpaid_balance": "587.00",
+      "borrower_other_liabilities_monthly_payments": ""
+   },
+   "section_3": {
+      "borrower_own_property_address_street": "5554 N PARK DR\n",
+      "borrower_own_property_address_unit_num": "",
+      "borrower_own_property_address_city": "TONE\n",
+      "borrower_own_property_address_state": "CA\n",
+      "borrower_own_property_address_zip": "95640\n",
+      "borrower_own_property_address_country": "",
+      "borrower_own_property_value": "204,000.00\n",
+      "borrower_own_property_status": "Retained\n",
+      "borrower_own_property_intended_occupancy": "Primary Residence\n",
+      "borrower_own_property_monthly_insurance_etc": "292./9\n",
+      "borrower_own_property_monthly_rental_income": "",
+      "borrower_own_property_monthly_rental_income_for_lender_calculation": ""
+   },
+   "section_4": {
+      "borrower_property_loan_purpose": "Refinance",
+      "borrower_property_loan_amount": "74,370.00\n",
+      "borrower_property_address_street": "5554 N PARK DR\n",
+      "borrower_property_address_unit_num": "",
+      "borrower_property_address_city": "IONE\n",
+      "borrower_property_address_county": "AMADOR\n",
+      "borrower_property_address_state": "CA\n",
+      "borrower_property_address_zip": "95640\n",
+      "borrower_property_address_number_of_units": "1\n",
+      "borrower_property_value": "204,000.00\n",
+      "borrower_property_occupancy": "Primary Residence",
+      "borrower_property_manufactured_home": "No"
+   },
+   "section_5": {
+      "check_borrower_declaration_A_primary_residence": "Yes",
+      "check_borrower_declaration_A_ownership_interest": "Yes",
+      "borrower_declaration_A_type_of_property": "PR\n",
+      "borrower_declaration_A_title_to_the_property": "Ss\n",
+      "check_borrower_declaration_B_purchase_transaction": "No",
+      "check_borrower_declaration_C_borrowing_money": "No",
+      "check_borrower_declaration_D_applying_for_mortgage_loan": "No",
+      "check_borrower_declaration_D_applying_for_new_credit": "No",
+      "check_borrower_declaration_E_property_subject_to_lien": "No",
+      "check_borrower_declaration_F_co-signer_or_guarantor": "No",
+      "check_borrower_declaration_G_any_outstanding": "No",
+      "check_borrower_declaration_H_currently_delinquent": "No",
+      "check_borrower_declaration_I_are_you_a_party": "No",
+      "check_borrower_declaration_J_conveyed_title": "No",
+      "check_borrower_declaration_K_completed_pre-foreclosure": "No",
+      "check_borrower_declaration_L_property_foreclosed": "No",
+      "check_borrower_declaration_M_declared_bankruptcy": "No"
+   },
+   "section_6": {
+      "check_borrower_date_and_signature": "Yes",
+      "check_coborrower_date_and_signature": "No"
+   },
+   "section_7": {
+      "check_borrower_US_armed_forces_service": "Yes"
+   },
+   "section_8": {
+      "borrower_ethnicity": "I do not wish to provide this information",
+      "borrower_sex": "I do not wish to provide this information",
+      "borrower_race": "I do not  wish to provide this information",
+      "borrower_demographic_information_through_telephone_interview": "Yes"
+   }
+}
