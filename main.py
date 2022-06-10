@@ -322,11 +322,13 @@ def employerAddress(employer_address_tag, borrower_employer_address):
         if value:
             ET.SubElement(employer_address_tag, key).text = value
 
+
 def borrowerEmploymentDetails(employer_tag, employment_details):
     employment_tag = ET.SubElement(employer_tag, 'EMPLOYMENT')
     for key, value in employment_details.items():
         if value:
             ET.SubElement(employment_tag, key).text = value
+
 
 def employerDetails(parent_tag, child_tag, employer_name, employer_phone):
     employer_name_tag = ET.SubElement(child_tag, 'FullName')

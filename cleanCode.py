@@ -52,18 +52,22 @@ def dealSets():
     deals_tag = ET.SubElement(deal_set_tag, 'DEALS')
     deal_tag = ET.SubElement(deals_tag, 'DEAL')
     assets(deal_tag)
+    liabilities(deal_tag)
     loan(deal_tag)
     parties(deal_tag)
+    collaterals(deal_tag)
 
 # LOAN TAG
+
 
 def assets(deal_tag):
     assets_tag = ET.SubElement(deal_tag, 'ASSETS')
     asset_tag = ET.SubElement(assets_tag, 'ASSET')
-    owneddProperty(asset_tag)
+    ownedProperty(asset_tag)
+
 
 def ownedProperty(asset_tag):
-    owned_property_tag = ET.SubElement(assets_tag, 'OWNED_PROPERTY')
+    owned_property_tag = ET.SubElement(asset_tag, 'OWNED_PROPERTY')
     borrower_owned_property_details = {
         'OwnedPropertySubjectIndicator': 'true',
         'OwnedPropertyDispositionStatusType': sectionThree['borrower_own_property_status'],
@@ -74,8 +78,8 @@ def ownedProperty(asset_tag):
         'OwnedPropertyLienUPBAmount': sectionThree['borrower_own_property_unpaid_balance']
     }
     owned_property_details_tag = ET.SubElement(
-    owned_property_tag, 'OWNED_PROPERTY_DETAILS')
-    for key, value in property_details.items():
+        owned_property_tag, 'OWNED_PROPERTY_DETAILS')
+    for key, value in borrower_owned_property_details.items():
         if value:
             ET.SubElement(owned_property_details_tag, key).text = value
     borrowerProperty(owned_property_tag)
@@ -85,7 +89,7 @@ def borrowerProperty(owned_property_tag):
     property_tag = ET.SubElement(owned_property_tag, 'PROPERTY')
     propertyDetails(property_tag)
     propertyAddress(property_tag)
-
+    propertyValuation(property_tag)
 
 
 def propertyAddress(property_tag):
@@ -102,6 +106,7 @@ def propertyAddress(property_tag):
         if value:
             ET.SubElement(address_tag, key).text = value
 
+
 def propertyDetails(property_tag):
     property_detail_tag = ET.SubElement(property_tag, 'PROPERTY_DETAIL')
     borrower_property_details = {
@@ -111,6 +116,7 @@ def propertyDetails(property_tag):
     for key, value in borrower_property_details.items():
         if value:
             ET.SubElement(property_detail_tag, key).text = value
+
 
 def propertyValuation(property_tag):
     property_valuation = sectionThree['borrower_own_property_value']
@@ -124,46 +130,112 @@ def propertyValuation(property_tag):
                   'PropertyValuationAmount').text = property_valuation
 
 
-
 def liabilities(deal_tag):
-    liabilities_tag = ET.SubElement(deal, 'LIABILITIES')
+    liabilities_tag = ET.SubElement(deal_tag, 'LIABILITIES')
     liability_tag = ET.SubElement(liabilities_tag, 'LIABILITY')
     liabilityDetails(liability_tag)
     liabilityHolderDetails(liability_tag)
 
 
-
 def liabilityDetails(liability_tag):
     borrower_liability_details = {
-        'LiabilityPaymentIncludesTaxesInsuranceIndicator': 'false' if financial_info['borrower_own_property_monthly_insurance_etc'] else 'true',
-        'LiabilityAccountIdentifier': financial_info['borrower_own_property_mortgage_account_number'],
+        'LiabilityPaymentIncludesTaxesInsuranceIndicator': 'false' if sectionThree['borrower_own_property_monthly_insurance_etc'] else 'true',
+        'LiabilityAccountIdentifier': sectionThree['borrower_own_property_mortgage_account_number'],
         'LiabilityType': 'MortgageLoan',
-        'LiabilityMonthlyPaymentAmount': financial_info['borrower_own_property_monthly_mortgage_payment'],
-        'LiabilityUnpaidBalanceAmount': financial_info['borrower_own_property_unpaid_balance'],
-        'MortgageType': financial_info['borrower_own_property_mortgage_type'],
+        'LiabilityMonthlyPaymentAmount': sectionThree['borrower_own_property_monthly_mortgage_payment'],
+        'LiabilityUnpaidBalanceAmount': sectionThree['borrower_own_property_unpaid_balance'],
+        'MortgageType': sectionThree['borrower_own_property_mortgage_type'],
         'LiabilityPayoffStatusIndicato': 'false',
-        'HELOCMaximumBalanceAmount': financial_info['borrower_own_property_mortgage_credit_limit']
+        'HELOCMaximumBalanceAmount': sectionThree['borrower_own_property_mortgage_credit_limit']
     }
     liability_details_tag = ET.SubElement(liability_tag, 'LIABILITY_DETAILS')
     for key, value in borrower_liability_details.items():
         if value:
             ET.SubElement(liability_details_tag, key).text = value
 
-def liabilityHolderDetails(liability_tag, creditor_name):
+
+def liabilityHolderDetails(liability_tag):
     creditor_name = sectionThree['borrower_own_property_mortgage_creditor_name']
     liability_holder_tag = ET.SubElement(liability_tag, 'LIABILITY_HOLDER')
     liability_holder_name_tag = ET.SubElement(liability_holder_tag, 'NAME')
     ET.SubElement(liability_holder_name_tag, 'FullName').text = creditor_name
 
 
-
 def loan(deal_tag):
     loans_tag = ET.SubElement(deal_tag, 'LOANS')
     loan_tag = ET.SubElement(loans_tag, 'LOAN')
+    loanDetails(loan_tag)
+    termsOfLoan(loan_tag)
+
+
+def loanDetails(loan_tag):
     loan_detail_tag = ET.SubElement(loan_tag, 'LOAN_DETAIL')
     borrower_count_tag = ET.SubElement(loan_detail_tag, 'BorrowerCount')
     number_of_borrowers = sectionOne['coborrower_count']
     borrower_count_tag.text = number_of_borrowers
+
+
+def termsOfLoan(loan_tag):
+    loan_purpose = sectionFour['borrower_property_loan_purpose']
+    terms_of_loan_tag = ET.SubElement(loan_tag, 'TERMS_OF_LOAN')
+    ET.SubElement(terms_of_loan_tag, 'LoanPurposeType').text = loan_purpose
+
+
+def collaterals(deal_tag):
+    collaterals_tag = ET.SubElement(deal_tag, 'COLLATERALS')
+    collateral_tag = ET.SubElement(collaterals_tag, 'COLLATERAL')
+    subjectProperty(collateral_tag)
+
+
+def subjectProperty(collateral_tag):
+    subject_property_tag = ET.SubElement(collateral_tag, 'SUBJECT_PROPERTY')
+    subjectPropertyAddress(subject_property_tag)
+    subjectPropertyDetails(subject_property_tag)
+
+
+def subjectPropertyAddress(subject_property_tag):
+    subject_property_address = {
+        'AddressLineText': sectionFour['borrower_property_address_street'],
+        'AddressUnitIdentifier': sectionFour['borrower_property_address_unit_num'],
+        'CityName': sectionFour['borrower_property_address_city'],
+        'CountryName': sectionFour['borrower_property_address_county'],
+        'PostalCode': sectionFour['borrower_property_address_zip'],
+        'StateCode': sectionFour['borrower_property_address_state']
+
+    }
+
+    address_tag = ET.SubElement(subject_property_tag, 'ADDRESS')
+    for key, value in subject_property_address.items():
+        if value:
+            ET.SubElement(address_tag, key).text = value
+
+
+def subjectPropertyDetails(subject_property_tag):
+    subject_property_details = {
+        'FinancedUnitCount': sectionFour['borrower_property_address_number_of_units'],
+        'PropertyEstimatedValueAmount': sectionFour['borrower_property_value'],
+        'PropertyUsageType': sectionFour['borrower_property_occupancy'],
+        'PropertyMixedUsageIndicator': 'false',
+        'ConstructionMethodType': 'SiteBuilt' if sectionFour['borrower_property_manufactured_home'] == 'No' else 'Manufactured'
+    }
+
+    subject_property_details_tag = ET.SubElement(
+        subject_property_tag, 'PROPERTY_DETAILS')
+    for key, value in subject_property_details.items():
+        if value:
+            ET.SubElement(subject_property_details_tag, key).text = value
+
+
+def subjectPropertyValuation(subject_property_tag):
+    property_value = sectionFour['borrower_property_value']
+    property_valuations_tag = ET.SubElement(
+        subject_property_tag, 'PROPERTY_VALUATIONS')
+    property_valuation_tag = ET.SubElement(
+        property_valuations_tag, 'PROPERTY_VALUATION')
+    property_valuation_detail_tag = ET.SubElement(
+        property_valuation_tag, 'PROPERTY_VALUATION_DETAIL')
+    ET.SubElement(property_valuation_detail_tag,
+                  'PropertyValuationAmount').text = property_value
 
 
 # PARTY TAG
@@ -299,12 +371,17 @@ def roles(party_tag):
     party_role_type_tag = ET.SubElement(role_detail_tag, 'PartyRoleType')
     # Not correct yet
     party_role_type_tag.text = 'Borrower'
+    borrower(role_tag)
+
+
+def borrower(role_tag):
     borrower_tag = ET.SubElement(role_tag, 'BORROWER')
     borrowerDetails(borrower_tag)
     borrowerResidence(borrower_tag)
     borrowerDecralartionDetails(borrower_tag)
     borrowerCurrentIncome(borrower_tag)
     borrowerEmployer(borrower_tag)
+    governmentMonitoring(borrower_tag)
 
 
 # BORROWER_DETAIL TAG
@@ -388,7 +465,7 @@ def landlordDetails():
     # what will be the monthly rent variable in json
     pass
 
-# DECLARATION_DETAILS TAG
+# DECLARATION_DETAIL_TAG
 
 
 def borrowerDecralartionDetails(borrower_tag):
@@ -399,6 +476,40 @@ def borrowerDecralartionDetails(borrower_tag):
         declaration_detail_tag, 'CitizenshipResidencyType')
     citizenship = sectionOne['borrower_citizenship']
     residency_type_tag.text = citizenship
+    ET.SubElement(declaration_detail_tag, 'IntentToOccupyType').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_A_primary_residence'])
+    declaration_extension_tag = ET.SubElement(declaration_detail_tag, 'EXTENSION')
+    extension_other_tag = ET.SubElement(declaration_extension_tag, 'OTHER')
+    ULAD_declartion_detail_tag = ET.SubElement(
+        extension_other_tag, 'ULAD:DECLARATION_DETAIL_tag_EXTENSION')
+    ET.SubElement(ULAD_declartion_detail_tag, 'ULAD:SpecialBorrowerSellerRelationshipIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_B_purchase_transaction']
+    )
+    ET.SubElement(declaration_detail_tag, 'UndisclosedBorrowedFundsIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_C_borrowing_money'])
+    ET.SubElement(declaration_detail_tag, 'UndisclosedMortgageApplicationIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_D_applying_for_mortgage_loan'])
+    ET.SubElement(declaration_detail_tag, 'UndisclosedCreditApplicationIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_D_applying_for_new_credit'])
+    ET.SubElement(declaration_detail_tag, 'PropertyProposedCleanEnergyLienIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_E_property_subject_to_lien'])
+    # sdsadasdadadasd
+    ET.SubElement(declaration_detail_tag, 'UndisclosedComakerOfNoteIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_F_co-signer_or_guarantor'])
+    ET.SubElement(declaration_detail_tag, 'OutstandingJudgmentsIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_G_any_outstanding'])
+    ET.SubElement(declaration_detail_tag, 'PresentlyDelinquentIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_H_currently_delinquent'])
+    ET.SubElement(declaration_detail_tag, 'PartyToLawsuitIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_I_are_you_a_party'])
+    ET.SubElement(declaration_detail_tag, 'PriorPropertyDeedInLieuConveyedIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_J_conveyed_title'])
+    ET.SubElement(declaration_detail_tag, 'PriorPropertyShortSaleCompletedIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_K_completed_pre-foreclosure'])
+    ET.SubElement(declaration_detail_tag, 'PriorPropertyForeclosureCompletedIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_L_property_foreclosed'])
+    ET.SubElement(declaration_detail_tag, 'BankruptcyIndicator').text = YesNOtoBoolean(
+        sectionFive['check_borrower_declaration_M_declared_bankruptcy'])
 
 
 # CURRENT_INCOME TAG
@@ -434,14 +545,73 @@ def borrowerCurrentIncome(borrower_tag):
 
 
 def borrowerEmployer(borrower_tag):
-    borrower_employer_name = sectionOne['borrower_employer_name']
-    borrower_employer_phone = sectionOne['borrower_employer_phone']
     employers_tag = ET.SubElement(borrower_tag, 'EMPLOYERS')
     employer_tag = ET.SubElement(employers_tag, 'EMPLOYER')
     legalEntity(employer_tag)
     employerIndividualDetails(employer_tag)
     employerAddress(employer_tag)
     borrowerEmploymentDetails(employer_tag)
+
+
+def governmentMonitoring(borrower_tag):
+    government_monitoring_tag = ET.SubElement(
+        borrower_tag, 'GOVERNMENT_MONITORING')
+    government_monitoring_detail_tag = ET.SubElement(
+        government_monitoring_tag, 'GOVERNMENT_MONITORING_DETAIL')
+    ET.SubElement(government_monitoring_detail_tag,
+                  'HMDAEthnicityRefusalIndicator').text = 'false' if sectionEight['borrower_ethnicity'] else 'true'
+    ET.SubElement(government_monitoring_detail_tag,
+                  'HMDAGenderRefusalIndicator').text = 'false' if sectionEight['borrower_sex'] else 'true'
+    ET.SubElement(government_monitoring_detail_tag,
+                  'HMDARaceRefusalIndicator').text = 'false' if sectionEight['borrower_race'] else 'true'
+    ET.SubElement(government_monitoring_detail_tag, 'HMDAEthnicityCollectedBasedOnVisualObservationOrSurnameIndicator').text = YesNOtoBoolean(
+        sectionEight['borrower_ethnicity_based_on_visual_observation_or_surname']
+    )
+    ET.SubElement(government_monitoring_detail_tag, 'HMDAGenderCollectedBasedOnVisualObservationOrNameIndicator').text = YesNOtoBoolean(
+        sectionEight['borrower_sex_based_on_visual_observation_or_surname']
+    )
+    ET.SubElement(government_monitoring_detail_tag, 'HMDARaceCollectedBasedOnVisualObservationOrSurnameIndicator').text = YesNOtoBoolean(
+        sectionEight['borrower_race_based_on_visual_observation_or_surname']
+    )
+    governmentMonitoringExtension(government_monitoring_detail_tag)
+    hmdaEthnicityOrigin(government_monitoring_detail_tag)
+    hmdaRace(government_monitoring_detail_tag)
+
+
+def hmdaEthnicityOrigin(government_monitoring_detail_tag):
+    hmda_ethnicity_origins_tag = ET.SubElement(
+        government_monitoring_detail_tag, 'HMDA_ETHNICITY_ORIGINS')
+    hmda_ethnicity_origin_tag = ET.SubElement(
+        government_monitoring_detail_tag, 'HMDA_ETHNICITY_ORIGIN')
+    ET.SubElement(hmda_ethnicity_origins_tag,
+                  'HMDAEthnicityOriginType').text = sectionEight['borrower_hispanic_or_latino_subcategory']
+
+
+def hmdaRace(government_monitoring_detail_tag):
+    hmda_races_tag = ET.SubElement(
+        government_monitoring_detail_tag, 'HMDA_RACES')
+    hmda_race_tag = ET.SubElement(hmda_races_tag, 'HMDA_RACE')
+    hmda_race_detail_tag = ET.SubElement(hmda_race_tag, 'HMDA_RACE_DETAIL')
+    ET.SubElement(hmda_race_detail_tag,
+                  'HMDARaceType').text = sectionEight['borrower_race']
+
+
+def governmentMonitoringExtension(government_monitoring_detail_tag):
+    government_monitoring_extension_tag = ET.SubElement(
+        government_monitoring_detail_tag, 'EXTENSION')
+    extension_other_tag = ET.SubElement(
+        government_monitoring_extension_tag, 'OTHER')
+    ulad_government_monitoring_extension_tag = ET.SubElement(
+        extension_other_tag, 'ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION')
+    ulad_ethnicities_tag = ET.SubElement(
+        ulad_government_monitoring_extension_tag, 'ULAD:HMDA_ETHNICITIES')
+    ulad_ethnicity_tag = ET.SubElement(
+        ulad_ethnicities_tag, 'ULAD:HMDA_ETHNICITY')
+    ET.SubElement(ulad_government_monitoring_extension_tag,
+                  'ULAD:HMDAGenderType').text = sectionEight['borrower_sex']
+    # IF other is selected -- Not included
+    ET.SubElement(ulad_ethnicity_tag,
+                  'ULAD:HMDAEthnicityType').text = sectionEight['borrower_ethnicity']
 
 
 def legalEntity(employer_tag):
@@ -487,11 +657,11 @@ def employerIndividualDetails(employer_tag,):
 
 def borrowerEmploymentDetails(employer_tag):
     if sectionOne['borrower_years_in_current_employment']:
-            years_to_months = int(
+        years_to_months = int(
             sectionOne['borrower_years_in_current_employment']) * 12
     if sectionOne['borrower_months_in_current_employment']:
-            years_to_months += int(
-                sectionOne['borrower_months_in_current_employment'])
+        years_to_months += int(
+            sectionOne['borrower_months_in_current_employment'])
 
     employment_details = {
         'EmploymentPositionDescription': sectionOne['borrower_employment_position'],
@@ -522,9 +692,6 @@ def employerAddress(employer_tag):
     for key, value in borrower_employer_address.items():
         if value:
             ET.SubElement(employer_address_tag, key).text = value
-
-
-
 
 
 convertToXml()
