@@ -13,10 +13,36 @@
                             <OWNED_PROPERTY>
                                 <OWNED_PROPERTY_DETAILS>
                                     <OwnedPropertySubjectIndicator>true</OwnedPropertySubjectIndicator>
+                                    <OwnedPropertyDispositionStatusType>Retained
+                                    </OwnedPropertyDispositionStatusType>
+                                    <OwnedPropertyMaintenanceExpenseAmount>292./9
+                                    </OwnedPropertyMaintenanceExpenseAmount>
                                 </OWNED_PROPERTY_DETAILS>
                                 <PROPERTY>
-                                    <PROPERTY_DETAIL/>
-                                    <ADDRESS/>
+                                    <PROPERTY_DETAIL>
+                                        <PropertyEstimatedValueAmount>204,000.00
+                                        </PropertyEstimatedValueAmount>
+                                        <PropertyUsageType>Primary Residence
+                                        </PropertyUsageType>
+                                    </PROPERTY_DETAIL>
+                                    <ADDRESS>
+                                        <AddressLineText>5554 N PARK DR
+                                        </AddressLineText>
+                                        <CityName>TONE
+                                        </CityName>
+                                        <PostalCode>95640
+                                        </PostalCode>
+                                        <StateCode>CA
+                                        </StateCode>
+                                    </ADDRESS>
+                                    <PROPERTY_VALUATIONS>
+                                        <PROPERTY_VALUATION>
+                                            <PROPERTY_VALUATION_DETAIL>
+                                                <PropertyValuationAmount>204,000.00
+                                                </PropertyValuationAmount>
+                                            </PROPERTY_VALUATION_DETAIL>
+                                        </PROPERTY_VALUATION>
+                                    </PROPERTY_VALUATIONS>
                                 </PROPERTY>
                             </OWNED_PROPERTY>
                         </ASSET>
@@ -24,7 +50,7 @@
                     <LIABILITIES>
                         <LIABILITY>
                             <LIABILITY_DETAILS>
-                                <LiabilityPaymentIncludesTaxesInsuranceIndicator>true
+                                <LiabilityPaymentIncludesTaxesInsuranceIndicator>false
                                 </LiabilityPaymentIncludesTaxesInsuranceIndicator>
                                 <LiabilityType>MortgageLoan</LiabilityType>
                                 <LiabilityPayoffStatusIndicato>false</LiabilityPayoffStatusIndicato>
@@ -37,7 +63,7 @@
                                 <BorrowerCount/>
                             </LOAN_DETAIL>
                             <TERMS_OF_LOAN>
-                                <LoanPurposeType>Purchase</LoanPurposeType>
+                                <LoanPurposeType>Refinance</LoanPurposeType>
                             </TERMS_OF_LOAN>
                         </LOAN>
                     </LOANS>
@@ -45,13 +71,15 @@
                         <PARTY>
                             <INDIVIDUAL>
                                 <NAME>
-                                    <FirstName>Norberto</FirstName>
-                                    <LastName>Velasquez</LastName>
+                                    <FirstName>Jacqueline</FirstName>
+                                    <LastName>Alley
+                                    </LastName>
                                 </NAME>
                                 <CONTACT_POINTS>
                                     <CONTACT_POINT>
                                         <CONTACT_POINT_TELEPHONE>
-                                            <ContactPointTelephoneValue>(951)772-9156</ContactPointTelephoneValue>
+                                            <ContactPointTelephoneValue>(209)274-6614
+                                            </ContactPointTelephoneValue>
                                         </CONTACT_POINT_TELEPHONE>
                                         <CONTACT_POINT_DETAIL>
                                             <ContactPointRoleType>Home</ContactPointRoleType>
@@ -59,7 +87,8 @@
                                     </CONTACT_POINT>
                                     <CONTACT_POINT>
                                         <CONTACT_POINT_EMAIL>
-                                            <ContactPointEmailValue>Nvelasquez4587.nv@gmail.com</ContactPointEmailValue>
+                                            <ContactPointEmailValue>jacquelineasomhg@gmail.com
+                                            </ContactPointEmailValue>
                                         </CONTACT_POINT_EMAIL>
                                     </CONTACT_POINT>
                                 </CONTACT_POINTS>
@@ -71,23 +100,29 @@
                                     </ROLE_DETAIL>
                                     <BORROWER>
                                         <BORROWER_DETAIL>
-                                            <SelfDeclaredMilitaryServiceIndicator>false
+                                            <SelfDeclaredMilitaryServiceIndicator>true
                                             </SelfDeclaredMilitaryServiceIndicator>
-                                            <BorrowerBirthDate>1985-06-20</BorrowerBirthDate>
+                                            <BorrowerBirthDate>1947-01-10</BorrowerBirthDate>
+                                            <MaritalStatusType>Married</MaritalStatusType>
                                             <DependentCount>0</DependentCount>
                                         </BORROWER_DETAIL>
                                         <RESIDENCE>
                                             <RESIDENCES>
                                                 <ADDRESS>
-                                                    <AddressLineText>Gifhorn</AddressLineText>
-                                                    <CityName>Menifee</CityName>
-                                                    <CountryCode>US</CountryCode>
-                                                    <PostalCode>92584</PostalCode>
-                                                    <StateCode>CA</StateCode>
+                                                    <AddressLineText>&#8212; 9004 Nortn Park Dr
+                                                    </AddressLineText>
+                                                    <CityName>IONE
+                                                    </CityName>
+                                                    <CountryCode>US OO
+                                                    </CountryCode>
+                                                    <PostalCode>99640
+                                                    </PostalCode>
+                                                    <StateCode>CA
+                                                    </StateCode>
                                                 </ADDRESS>
                                                 <RESIDENCE_DETAIL>
-                                                    <BorrowerResidencyBasisType>Rent</BorrowerResidencyBasisType>
-                                                    <BorrowerResidencyDurationMonthsCount>36
+                                                    <BorrowerResidencyBasisType>Own</BorrowerResidencyBasisType>
+                                                    <BorrowerResidencyDurationMonthsCount>96
                                                     </BorrowerResidencyDurationMonthsCount>
                                                     <BorrowerResidencyType>Current</BorrowerResidencyType>
                                                 </RESIDENCE_DETAIL>
@@ -132,50 +167,9 @@
                                         </CURRENT_INCOME>
                                         <EMPLOYERS>
                                             <EMPLOYER>
-                                                <LEGAL_ENTITY>
-                                                    <LEGAL_ENTITY_DETAIL>
-                                                        <FullName>Casaga Electric Inc</FullName>
-                                                    </LEGAL_ENTITY_DETAIL>
-                                                    <CONTACTS>
-                                                        <CONTACT>
-                                                            <CONTACT_POINTS>
-                                                                <CONTACT_POINT>
-                                                                    <CONTACT_POINT_TELEPHONE>
-                                                                        <ContactPointTelephoneValue>(951)600-2822
-                                                                        </ContactPointTelephoneValue>
-                                                                    </CONTACT_POINT_TELEPHONE>
-                                                                </CONTACT_POINT>
-                                                            </CONTACT_POINTS>
-                                                        </CONTACT>
-                                                    </CONTACTS>
-                                                </LEGAL_ENTITY>
-                                                <INDIVIDUAL>
-                                                    <FullName>Casaga Electric Inc</FullName>
-                                                    <CONTACTS>
-                                                        <CONTACT>
-                                                            <CONTACT_POINTS>
-                                                                <CONTACT_POINT>
-                                                                    <CONTACT_POINT_TELEPHONE>
-                                                                        <ContactPointTelephoneValue>(951)600-2822
-                                                                        </ContactPointTelephoneValue>
-                                                                    </CONTACT_POINT_TELEPHONE>
-                                                                </CONTACT_POINT>
-                                                            </CONTACT_POINTS>
-                                                        </CONTACT>
-                                                    </CONTACTS>
-                                                </INDIVIDUAL>
-                                                <ADDRESS>
-                                                    <AddressLineText>23902 Susana Way</AddressLineText>
-                                                    <CityName>Murrieta</CityName>
-                                                    <StateCode>CA</StateCode>
-                                                    <PostalCode>92562</PostalCode>
-                                                    <CountryCode>US</CountryCode>
-                                                </ADDRESS>
+                                                <ADDRESS/>
                                                 <EMPLOYMENT>
-                                                    <EmploymentPositionDescription>Electrician
-                                                    </EmploymentPositionDescription>
-                                                    <EmploymentStartDate>2015-01-01</EmploymentStartDate>
-                                                    <EmploymentTimeInLineOfWorkMonthsCount>84
+                                                    <EmploymentTimeInLineOfWorkMonthsCount>0
                                                     </EmploymentTimeInLineOfWorkMonthsCount>
                                                     <SpecialBorrowerEmployerRelationshipIndicator>false
                                                     </SpecialBorrowerEmployerRelationshipIndicator>
@@ -227,12 +221,17 @@
                             </ROLES>
                             <ADDRESSES>
                                 <ADDRESS>
-                                    <AddressLineText>Gifhorn</AddressLineText>
+                                    <AddressLineText>&#8212; 9004 Nortn Park Dr
+                                    </AddressLineText>
                                     <AddressType>Mailing</AddressType>
-                                    <CityName>Menifee</CityName>
-                                    <CountryCode>US</CountryCode>
-                                    <PostalCode>92584</PostalCode>
-                                    <StateCode>CA</StateCode>
+                                    <CityName>IONE
+                                    </CityName>
+                                    <CountryCode>US OO
+                                    </CountryCode>
+                                    <PostalCode>99640
+                                    </PostalCode>
+                                    <StateCode>CA
+                                    </StateCode>
                                 </ADDRESS>
                             </ADDRESSES>
                         </PARTY>
@@ -241,14 +240,22 @@
                         <COLLATERAL>
                             <SUBJECT_PROPERTY>
                                 <ADDRESS>
-                                    <AddressLineText>952 MONTEREY PL</AddressLineText>
-                                    <CityName>HEMET</CityName>
-                                    <CountryName>RIVERSIDE</CountryName>
-                                    <PostalCode>92543</PostalCode>
-                                    <StateCode>CA</StateCode>
+                                    <AddressLineText>5554 N PARK DR
+                                    </AddressLineText>
+                                    <CityName>IONE
+                                    </CityName>
+                                    <CountryName>AMADOR
+                                    </CountryName>
+                                    <PostalCode>95640
+                                    </PostalCode>
+                                    <StateCode>CA
+                                    </StateCode>
                                 </ADDRESS>
                                 <PROPERTY_DETAILS>
-                                    <FinancedUnitCount>1</FinancedUnitCount>
+                                    <FinancedUnitCount>1
+                                    </FinancedUnitCount>
+                                    <PropertyEstimatedValueAmount>204,000.00
+                                    </PropertyEstimatedValueAmount>
                                     <PropertyUsageType>Primary Residence</PropertyUsageType>
                                     <PropertyMixedUsageIndicator>false</PropertyMixedUsageIndicator>
                                     <ConstructionMethodType>SiteBuilt</ConstructionMethodType>

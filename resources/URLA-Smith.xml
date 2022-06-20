@@ -1,10 +1,8 @@
-<MESSAGE MISMOReferenceModelIdentifier="3.4.032420160128"
-    xmlns="http://www.mismo.org/residential/2009/schemas"
-    xmlns:ULAD="http://www.datamodelextension.org/Schema/ULAD"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<MESSAGE MISMOReferenceModelIdentifier="3.4.032420160128" xmlns="http://www.mismo.org/residential/2009/schemas"
+         xmlns:ULAD="http://www.datamodelextension.org/Schema/ULAD" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ABOUT_VERSIONS>
-        <ABOUT_VERSION />
+        <ABOUT_VERSION/>
     </ABOUT_VERSIONS>
     <DEAL_SETS>
         <DEAL_SET>
@@ -55,7 +53,8 @@
                     <LIABILITIES>
                         <LIABILITY>
                             <LIABILITY_DETAILS>
-                                <LiabilityPaymentIncludesTaxesInsuranceIndicator>false</LiabilityPaymentIncludesTaxesInsuranceIndicator>
+                                <LiabilityPaymentIncludesTaxesInsuranceIndicator>false
+                                </LiabilityPaymentIncludesTaxesInsuranceIndicator>
                                 <LiabilityAccountIdentifier>580033968</LiabilityAccountIdentifier>
                                 <LiabilityType>MortgageLoan</LiabilityType>
                                 <LiabilityMonthlyPaymentAmount>1,463.00</LiabilityMonthlyPaymentAmount>
@@ -113,7 +112,8 @@
                                     </ROLE_DETAIL>
                                     <BORROWER>
                                         <BORROWER_DETAIL>
-                                            <SelfDeclaredMilitaryServiceIndicator>false</SelfDeclaredMilitaryServiceIndicator>
+                                            <SelfDeclaredMilitaryServiceIndicator>false
+                                            </SelfDeclaredMilitaryServiceIndicator>
                                             <BorrowerBirthDate>1936-05-24</BorrowerBirthDate>
                                             <MaritalStatusType>Married</MaritalStatusType>
                                             <DependentCount>0</DependentCount>
@@ -134,7 +134,8 @@
                                                 </ADDRESS>
                                                 <RESIDENCE_DETAIL>
                                                     <BorrowerResidencyBasisType>Own</BorrowerResidencyBasisType>
-                                                    <BorrowerResidencyDurationMonthsCount>42</BorrowerResidencyDurationMonthsCount>
+                                                    <BorrowerResidencyDurationMonthsCount>42
+                                                    </BorrowerResidencyDurationMonthsCount>
                                                     <BorrowerResidencyType>Current</BorrowerResidencyType>
                                                 </RESIDENCE_DETAIL>
                                             </RESIDENCES>
@@ -142,25 +143,34 @@
                                         <DECLARATION>
                                             <DECLARATION_DETAIL>
                                                 <CitizenshipResidencyType>U.S. Citizen</CitizenshipResidencyType>
-                                                <IntentToOccupyType>false</IntentToOccupyType>
                                                 <EXTENSION>
                                                     <OTHER>
                                                         <ULAD:DECLARATION_DETAIL_tag_EXTENSION>
-                                                            <ULAD:SpecialBorrowerSellerRelationshipIndicator>false</ULAD:SpecialBorrowerSellerRelationshipIndicator>
+                                                            <ULAD:SpecialBorrowerSellerRelationshipIndicator>false
+                                                            </ULAD:SpecialBorrowerSellerRelationshipIndicator>
                                                         </ULAD:DECLARATION_DETAIL_tag_EXTENSION>
                                                     </OTHER>
                                                 </EXTENSION>
-                                                <UndisclosedBorrowedFundsIndicator>false</UndisclosedBorrowedFundsIndicator>
-                                                <UndisclosedMortgageApplicationIndicator>false</UndisclosedMortgageApplicationIndicator>
-                                                <UndisclosedCreditApplicationIndicator>false</UndisclosedCreditApplicationIndicator>
-                                                <PropertyProposedCleanEnergyLienIndicator>false</PropertyProposedCleanEnergyLienIndicator>
-                                                <UndisclosedComakerOfNoteIndicator>false</UndisclosedComakerOfNoteIndicator>
+                                                <IntentToOccupyType>false</IntentToOccupyType>
+                                                <UndisclosedBorrowedFundsIndicator>false
+                                                </UndisclosedBorrowedFundsIndicator>
+                                                <UndisclosedMortgageApplicationIndicator>false
+                                                </UndisclosedMortgageApplicationIndicator>
+                                                <UndisclosedCreditApplicationIndicator>false
+                                                </UndisclosedCreditApplicationIndicator>
+                                                <PropertyProposedCleanEnergyLienIndicator>false
+                                                </PropertyProposedCleanEnergyLienIndicator>
+                                                <UndisclosedComakerOfNoteIndicator>false
+                                                </UndisclosedComakerOfNoteIndicator>
                                                 <OutstandingJudgmentsIndicator>false</OutstandingJudgmentsIndicator>
                                                 <PresentlyDelinquentIndicator>false</PresentlyDelinquentIndicator>
                                                 <PartyToLawsuitIndicator>false</PartyToLawsuitIndicator>
-                                                <PriorPropertyDeedInLieuConveyedIndicator>false</PriorPropertyDeedInLieuConveyedIndicator>
-                                                <PriorPropertyShortSaleCompletedIndicator>false</PriorPropertyShortSaleCompletedIndicator>
-                                                <PriorPropertyForeclosureCompletedIndicator>false</PriorPropertyForeclosureCompletedIndicator>
+                                                <PriorPropertyDeedInLieuConveyedIndicator>false
+                                                </PriorPropertyDeedInLieuConveyedIndicator>
+                                                <PriorPropertyShortSaleCompletedIndicator>false
+                                                </PriorPropertyShortSaleCompletedIndicator>
+                                                <PriorPropertyForeclosureCompletedIndicator>false
+                                                </PriorPropertyForeclosureCompletedIndicator>
                                                 <BankruptcyIndicator>false</BankruptcyIndicator>
                                             </DECLARATION_DETAIL>
                                         </DECLARATION>
@@ -236,9 +246,12 @@
                                                     <EmploymentPositionDescription>Loan Officer
                                                     </EmploymentPositionDescription>
                                                     <EmploymentStartDate>2019-04-22</EmploymentStartDate>
-                                                    <EmploymentTimeInLineOfWorkMonthsCount>264</EmploymentTimeInLineOfWorkMonthsCount>
-                                                    <SpecialBorrowerEmployerRelationshipIndicator>false</SpecialBorrowerEmployerRelationshipIndicator>
-                                                    <EmploymentBorrowerSelfEmployedIndicator>false</EmploymentBorrowerSelfEmployedIndicator>
+                                                    <EmploymentTimeInLineOfWorkMonthsCount>264
+                                                    </EmploymentTimeInLineOfWorkMonthsCount>
+                                                    <SpecialBorrowerEmployerRelationshipIndicator>false
+                                                    </SpecialBorrowerEmployerRelationshipIndicator>
+                                                    <EmploymentBorrowerSelfEmployedIndicator>false
+                                                    </EmploymentBorrowerSelfEmployedIndicator>
                                                 </EMPLOYMENT>
                                             </EMPLOYER>
                                         </EMPLOYERS>
@@ -247,15 +260,20 @@
                                                 <HMDAEthnicityRefusalIndicator>false</HMDAEthnicityRefusalIndicator>
                                                 <HMDAGenderRefusalIndicator>false</HMDAGenderRefusalIndicator>
                                                 <HMDARaceRefusalIndicator>false</HMDARaceRefusalIndicator>
-                                                <HMDAEthnicityCollectedBasedOnVisualObservationOrSurnameIndicator>false</HMDAEthnicityCollectedBasedOnVisualObservationOrSurnameIndicator>
-                                                <HMDAGenderCollectedBasedOnVisualObservationOrNameIndicator>false</HMDAGenderCollectedBasedOnVisualObservationOrNameIndicator>
-                                                <HMDARaceCollectedBasedOnVisualObservationOrSurnameIndicator>false</HMDARaceCollectedBasedOnVisualObservationOrSurnameIndicator>
+                                                <HMDAEthnicityCollectedBasedOnVisualObservationOrSurnameIndicator>
+                                                    false
+                                                </HMDAEthnicityCollectedBasedOnVisualObservationOrSurnameIndicator>
+                                                <HMDAGenderCollectedBasedOnVisualObservationOrNameIndicator>false
+                                                </HMDAGenderCollectedBasedOnVisualObservationOrNameIndicator>
+                                                <HMDARaceCollectedBasedOnVisualObservationOrSurnameIndicator>false
+                                                </HMDARaceCollectedBasedOnVisualObservationOrSurnameIndicator>
                                                 <EXTENSION>
                                                     <OTHER>
                                                         <ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION>
                                                             <ULAD:HMDA_ETHNICITIES>
                                                                 <ULAD:HMDA_ETHNICITY>
-                                                                    <ULAD:HMDAEthnicityType>Hispanic or Latino</ULAD:HMDAEthnicityType>
+                                                                    <ULAD:HMDAEthnicityType>Hispanic or Latino
+                                                                    </ULAD:HMDAEthnicityType>
                                                                 </ULAD:HMDA_ETHNICITY>
                                                             </ULAD:HMDA_ETHNICITIES>
                                                             <ULAD:HMDAGenderType>Male</ULAD:HMDAGenderType>
@@ -265,7 +283,7 @@
                                                 <HMDA_ETHNICITY_ORIGINS>
                                                     <HMDAEthnicityOriginType>Mexican</HMDAEthnicityOriginType>
                                                 </HMDA_ETHNICITY_ORIGINS>
-                                                <HMDA_ETHNICITY_ORIGIN />
+                                                <HMDA_ETHNICITY_ORIGIN/>
                                                 <HMDA_RACES>
                                                     <HMDA_RACE>
                                                         <HMDA_RACE_DETAIL>
