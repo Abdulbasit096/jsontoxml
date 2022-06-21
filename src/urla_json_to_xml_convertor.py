@@ -4,7 +4,7 @@ import json
 from config import get_project_root
 
 
-case_id = "URLA-Alduenda"
+case_id = "URLA-Smith"
 
 with open(f'{get_project_root()}/resources/{case_id}.json') as urla_json:
     data = dict(json.load(urla_json))
@@ -18,11 +18,13 @@ sectionFive = data['section_5']
 sectionSix = data['section_6']
 sectionSeven = data['section_7']
 sectionEight = data['section_8']
-root = ET.Element('MESSAGE')
 
 
 def YesNOtoBoolean(value):
-    return 'true' if value == 'Yes' else 'false'
+    if value is None:
+        return None
+    else:
+        return 'true' if value.lower() == 'yes' else 'false'
 
 
 def checkIfJsonExist(dataset, key):
@@ -33,31 +35,53 @@ def checkIfJsonExist(dataset, key):
         return None
 
 
-def convertToXml():
-    setRootAttributes()
+def createRoot():
+    root = ET.Element('MESSAGE')
+    setRootAttributes(root)
+    aboutVersion(root)
+    dealSets(root)
+    documentSets(root)
+    convertToXml(root)
+
+
+
+
+def convertToXml(root):
     tree = ET.ElementTree(root)
     tree.write(f'{get_project_root()}/resources/{case_id}.xml')
+    tree.write(f'{get_project_root()}/test_resources/{case_id}.xml')
 
 
 
-def setRootAttributes():
+def setRootAttributes(root):
     root.set('MISMOReferenceModelIdentifier', '3.4.032420160128')
     root.set('xmlns', 'http://www.mismo.org/residential/2009/schemas')
     root.set('xmlns:ULAD', 'http://www.datamodelextension.org/Schema/ULAD')
     root.set('xmlns:xlink', "http://www.w3.org/1999/xlink")
     root.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-    aboutVersion()
-    dealSets()
 
 
-def aboutVersion():
+def aboutVersion(root):
     about_versions_tag = ET.SubElement(root, 'ABOUT_VERSIONS')
     about_version_tag = ET.SubElement(about_versions_tag, 'ABOUT_VERSION')
+
+
+def documentSets(root):
+    document_sets_tag = ET.SubElement(root, 'DOCUMENT_SETS')
+    document_set_tag = ET.SubElement(document_sets_tag, 'DOCUMENT_SET')
+    documents_tag = ET.SubElement(document_set_tag, 'DOCUMENTS')
+    document_tag = ET.SubElement(documents_tag, 'DOCUMENT')
+    signatories_tag = ET.SubElement(document_tag, 'SIGNATORIES')
+    signatory_tag = ET.SubElement(signatories_tag, 'SIGNATORY')
+    execution_tag  = ET.SubElement(signatory_tag, 'EXECUTION')
+    execution_detail_tag = ET.SubElement(execution_tag, 'EXECUTION_DETAIL')
+    # SCE-36 - TAKE UPDATES FROM AZMI
+    ET.SubElement(execution_detail_tag, 'ExecutionDate').text = datetime.now().strftime("%Y-%m-%d")
 
 # DEAL SETS TAG
 
 
-def dealSets():
+def dealSets(root):
     deal_sets_tag = ET.SubElement(root, 'DEAL_SETS')
     deal_set_tag = ET.SubElement(deal_sets_tag, 'DEAL_SET')
     deals_tag = ET.SubElement(deal_set_tag, 'DEALS')
@@ -762,4 +786,4 @@ def employerAddress(employer_tag):
             ET.SubElement(employer_address_tag, key).text = value
 
 
-convertToXml()
+createRoot()

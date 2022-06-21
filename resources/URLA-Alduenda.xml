@@ -1,292 +1,38 @@
-<MESSAGE MISMOReferenceModelIdentifier="3.4.032420160128" xmlns="http://www.mismo.org/residential/2009/schemas"
-         xmlns:ULAD="http://www.datamodelextension.org/Schema/ULAD" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <ABOUT_VERSIONS>
-        <ABOUT_VERSION/>
-    </ABOUT_VERSIONS>
-    <DEAL_SETS>
-        <DEAL_SET>
-            <DEALS>
-                <DEAL>
-                    <ASSETS>
-                        <ASSET>
-                            <OWNED_PROPERTY>
-                                <OWNED_PROPERTY_DETAILS>
-                                    <OwnedPropertySubjectIndicator>true</OwnedPropertySubjectIndicator>
-                                    <OwnedPropertyDispositionStatusType>netained
-                                    </OwnedPropertyDispositionStatusType>
-                                    <OwnedPropertyMaintenanceExpenseAmount>022.00 0 &#8212; |
-                                    </OwnedPropertyMaintenanceExpenseAmount>
-                                    <OwnedPropertyLienUPBAmount>85,743.00
-                                    </OwnedPropertyLienUPBAmount>
-                                </OWNED_PROPERTY_DETAILS>
-                                <PROPERTY>
-                                    <PROPERTY_DETAIL>
-                                        <PropertyEstimatedValueAmount>90,000.00
-                                        </PropertyEstimatedValueAmount>
-                                        <PropertyUsageType>-rimaryResidence
-                                        </PropertyUsageType>
-                                    </PROPERTY_DETAIL>
-                                    <ADDRESS>
-                                        <AddressLineText>16023 MOUNT PRIETO CIR
-                                        </AddressLineText>
-                                        <CityName>FOUNTAIN VALLEY
-                                        </CityName>
-                                        <PostalCode>92708
-                                        </PostalCode>
-                                        <StateCode>A Z
-                                        </StateCode>
-                                    </ADDRESS>
-                                    <PROPERTY_VALUATIONS>
-                                        <PROPERTY_VALUATION>
-                                            <PROPERTY_VALUATION_DETAIL>
-                                                <PropertyValuationAmount>90,000.00
-                                                </PropertyValuationAmount>
-                                            </PROPERTY_VALUATION_DETAIL>
-                                        </PROPERTY_VALUATION>
-                                    </PROPERTY_VALUATIONS>
-                                </PROPERTY>
-                            </OWNED_PROPERTY>
-                        </ASSET>
-                    </ASSETS>
-                    <LIABILITIES>
-                        <LIABILITY>
-                            <LIABILITY_DETAILS>
-                                <LiabilityPaymentIncludesTaxesInsuranceIndicator>false
-                                </LiabilityPaymentIncludesTaxesInsuranceIndicator>
-                                <LiabilityAccountIdentifier>46518919734
-                                </LiabilityAccountIdentifier>
-                                <LiabilityType>MortgageLoan</LiabilityType>
-                                <LiabilityMonthlyPaymentAmount>1,542.00 |
-                                </LiabilityMonthlyPaymentAmount>
-                                <LiabilityUnpaidBalanceAmount>85,743.00
-                                </LiabilityUnpaidBalanceAmount>
-                                <MortgageType>ynventional | g
-                                </MortgageType>
-                                <LiabilityPayoffStatusIndicato>false</LiabilityPayoffStatusIndicato>
-                            </LIABILITY_DETAILS>
-                            <LIABILITY_HOLDER>
-                                <NAME>
-                                    <FullName>JPMCB HOME
-                                    </FullName>
-                                </NAME>
-                            </LIABILITY_HOLDER>
-                        </LIABILITY>
-                    </LIABILITIES>
-                    <LOANS>
-                        <LOAN>
-                            <LOAN_DETAIL>
-                                <BorrowerCount>2
-                                </BorrowerCount>
-                            </LOAN_DETAIL>
-                            <TERMS_OF_LOAN>
-                                <LoanPurposeType>Refinance</LoanPurposeType>
-                            </TERMS_OF_LOAN>
-                        </LOAN>
-                    </LOANS>
-                    <PARTIES>
-                        <PARTY>
-                            <INDIVIDUAL>
-                                <NAME>
-                                    <FirstName>Johnny</FirstName>
-                                    <LastName>Alduenda
-                                    </LastName>
-                                </NAME>
-                                <CONTACT_POINTS>
-                                    <CONTACT_POINT>
-                                        <CONTACT_POINT_TELEPHONE>
-                                            <ContactPointTelephoneValue>(714)469-1089
-                                            </ContactPointTelephoneValue>
-                                        </CONTACT_POINT_TELEPHONE>
-                                        <CONTACT_POINT_DETAIL>
-                                            <ContactPointRoleType>Mobile</ContactPointRoleType>
-                                        </CONTACT_POINT_DETAIL>
-                                    </CONTACT_POINT>
-                                    <CONTACT_POINT>
-                                        <CONTACT_POINT_EMAIL>
-                                            <ContactPointEmailValue>john.alduenda@yahoo.com
-                                            </ContactPointEmailValue>
-                                        </CONTACT_POINT_EMAIL>
-                                    </CONTACT_POINT>
-                                </CONTACT_POINTS>
-                            </INDIVIDUAL>
-                            <ROLES>
-                                <ROLE>
-                                    <ROLE_DETAIL>
-                                        <PartyRoleType>Borrower</PartyRoleType>
-                                    </ROLE_DETAIL>
-                                    <BORROWER>
-                                        <BORROWER_DETAIL>
-                                            <SelfDeclaredMilitaryServiceIndicator>false
-                                            </SelfDeclaredMilitaryServiceIndicator>
-                                            <BorrowerBirthDate>1940-08-08</BorrowerBirthDate>
-                                            <MaritalStatusType>Married</MaritalStatusType>
-                                            <DependentCount>0</DependentCount>
-                                        </BORROWER_DETAIL>
-                                        <RESIDENCE>
-                                            <RESIDENCES>
-                                                <ADDRESS>
-                                                    <AddressLineText>16023 MOUNT PRIETO CIR
-                                                    </AddressLineText>
-                                                    <CityName>FOUNTAIN VALLEY
-                                                    </CityName>
-                                                    <CountryCode>US
-                                                    </CountryCode>
-                                                    <PostalCode>92708
-                                                    </PostalCode>
-                                                    <StateCode>CA
-                                                    </StateCode>
-                                                </ADDRESS>
-                                                <RESIDENCE_DETAIL>
-                                                    <BorrowerResidencyBasisType>Own</BorrowerResidencyBasisType>
-                                                    <BorrowerResidencyDurationMonthsCount>540
-                                                    </BorrowerResidencyDurationMonthsCount>
-                                                    <BorrowerResidencyType>Current</BorrowerResidencyType>
-                                                </RESIDENCE_DETAIL>
-                                            </RESIDENCES>
-                                        </RESIDENCE>
-                                        <DECLARATION>
-                                            <DECLARATION_DETAIL>
-                                                <CitizenshipResidencyType>U.S. Citizen</CitizenshipResidencyType>
-                                                <EXTENSION>
-                                                    <OTHER>
-                                                        <ULAD:DECLARATION_DETAIL_tag_EXTENSION>
-                                                            <ULAD:SpecialBorrowerSellerRelationshipIndicator>false
-                                                            </ULAD:SpecialBorrowerSellerRelationshipIndicator>
-                                                        </ULAD:DECLARATION_DETAIL_tag_EXTENSION>
-                                                    </OTHER>
-                                                </EXTENSION>
-                                                <IntentToOccupyType>true</IntentToOccupyType>
-                                                <UndisclosedBorrowedFundsIndicator>false
-                                                </UndisclosedBorrowedFundsIndicator>
-                                                <UndisclosedMortgageApplicationIndicator>false
-                                                </UndisclosedMortgageApplicationIndicator>
-                                                <UndisclosedCreditApplicationIndicator>false
-                                                </UndisclosedCreditApplicationIndicator>
-                                                <PropertyProposedCleanEnergyLienIndicator>false
-                                                </PropertyProposedCleanEnergyLienIndicator>
-                                                <UndisclosedComakerOfNoteIndicator>false
-                                                </UndisclosedComakerOfNoteIndicator>
-                                                <OutstandingJudgmentsIndicator>false</OutstandingJudgmentsIndicator>
-                                                <PresentlyDelinquentIndicator>false</PresentlyDelinquentIndicator>
-                                                <PartyToLawsuitIndicator>false</PartyToLawsuitIndicator>
-                                                <PriorPropertyDeedInLieuConveyedIndicator>false
-                                                </PriorPropertyDeedInLieuConveyedIndicator>
-                                                <PriorPropertyShortSaleCompletedIndicator>false
-                                                </PriorPropertyShortSaleCompletedIndicator>
-                                                <PriorPropertyForeclosureCompletedIndicator>false
-                                                </PriorPropertyForeclosureCompletedIndicator>
-                                                <BankruptcyIndicator>false</BankruptcyIndicator>
-                                            </DECLARATION_DETAIL>
-                                        </DECLARATION>
-                                        <CURRENT_INCOME>
-                                            <CURRENT_INCOME_ITEMS>
-                                                <CURRENT_INCOME_ITEM>
-                                                    <CURRENT_INCOME_ITEM_DETAILS>
-                                                        <IncomeType>Other</IncomeType>
-                                                        <CurrentIncomeMonthlyTotalAmount>1,062.50
-                                                        </CurrentIncomeMonthlyTotalAmount>
-                                                        <EmploymentIncomeIndicator>true</EmploymentIncomeIndicator>
-                                                    </CURRENT_INCOME_ITEM_DETAILS>
-                                                </CURRENT_INCOME_ITEM>
-                                            </CURRENT_INCOME_ITEMS>
-                                        </CURRENT_INCOME>
-                                        <EMPLOYERS>
-                                            <EMPLOYER>
-                                                <ADDRESS/>
-                                                <EMPLOYMENT>
-                                                    <EmploymentTimeInLineOfWorkMonthsCount>0
-                                                    </EmploymentTimeInLineOfWorkMonthsCount>
-                                                    <SpecialBorrowerEmployerRelationshipIndicator>false
-                                                    </SpecialBorrowerEmployerRelationshipIndicator>
-                                                    <EmploymentBorrowerSelfEmployedIndicator>false
-                                                    </EmploymentBorrowerSelfEmployedIndicator>
-                                                </EMPLOYMENT>
-                                            </EMPLOYER>
-                                        </EMPLOYERS>
-                                        <GOVERNMENT_MONITORING>
-                                            <GOVERNMENT_MONITORING_DETAIL>
-                                                <HMDAEthnicityRefusalIndicator>false</HMDAEthnicityRefusalIndicator>
-                                                <HMDAGenderRefusalIndicator>false</HMDAGenderRefusalIndicator>
-                                                <HMDARaceRefusalIndicator>false</HMDARaceRefusalIndicator>
-                                                <HMDAEthnicityCollectedBasedOnVisualObservationOrSurnameIndicator>
-                                                    false
-                                                </HMDAEthnicityCollectedBasedOnVisualObservationOrSurnameIndicator>
-                                                <HMDAGenderCollectedBasedOnVisualObservationOrNameIndicator>false
-                                                </HMDAGenderCollectedBasedOnVisualObservationOrNameIndicator>
-                                                <HMDARaceCollectedBasedOnVisualObservationOrSurnameIndicator>false
-                                                </HMDARaceCollectedBasedOnVisualObservationOrSurnameIndicator>
-                                                <EXTENSION>
-                                                    <OTHER>
-                                                        <ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION>
-                                                            <ULAD:HMDA_ETHNICITIES>
-                                                                <ULAD:HMDA_ETHNICITY>
-                                                                    <ULAD:HMDAEthnicityType>Not Hispanic or Latino
-                                                                    </ULAD:HMDAEthnicityType>
-                                                                </ULAD:HMDA_ETHNICITY>
-                                                            </ULAD:HMDA_ETHNICITIES>
-                                                            <ULAD:HMDAGenderType>Male</ULAD:HMDAGenderType>
-                                                        </ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION>
-                                                    </OTHER>
-                                                </EXTENSION>
-                                                <HMDA_RACES>
-                                                    <HMDA_RACE>
-                                                        <HMDA_RACE_DETAIL>
-                                                            <HMDARaceType>White</HMDARaceType>
-                                                        </HMDA_RACE_DETAIL>
-                                                    </HMDA_RACE>
-                                                </HMDA_RACES>
-                                            </GOVERNMENT_MONITORING_DETAIL>
-                                        </GOVERNMENT_MONITORING>
-                                    </BORROWER>
-                                </ROLE>
-                            </ROLES>
-                            <ADDRESSES>
-                                <ADDRESS>
-                                    <AddressLineText>16023 MOUNT PRIETO CIR
-                                    </AddressLineText>
-                                    <AddressType>Mailing</AddressType>
-                                    <CityName>FOUNTAIN VALLEY
-                                    </CityName>
-                                    <CountryCode>US
-                                    </CountryCode>
-                                    <PostalCode>92708
-                                    </PostalCode>
-                                    <StateCode>CA
-                                    </StateCode>
-                                </ADDRESS>
-                            </ADDRESSES>
-                        </PARTY>
-                    </PARTIES>
-                    <COLLATERALS>
-                        <COLLATERAL>
-                            <SUBJECT_PROPERTY>
-                                <ADDRESS>
-                                    <AddressLineText>16023 MOUNT PRIETO CIR
-                                    </AddressLineText>
-                                    <CityName>FOUNTAIN VALLEY
-                                    </CityName>
-                                    <CountryName>ORANGE
-                                    </CountryName>
-                                    <PostalCode>92708
-                                    </PostalCode>
-                                    <StateCode>CA
-                                    </StateCode>
-                                </ADDRESS>
-                                <PROPERTY_DETAILS>
-                                    <FinancedUnitCount>ee
-                                    </FinancedUnitCount>
-                                    <PropertyEstimatedValueAmount>750,000.00
-                                    </PropertyEstimatedValueAmount>
-                                    <PropertyUsageType>Primary Residence</PropertyUsageType>
-                                    <PropertyMixedUsageIndicator>false</PropertyMixedUsageIndicator>
-                                    <ConstructionMethodType>SiteBuilt</ConstructionMethodType>
-                                </PROPERTY_DETAILS>
-                            </SUBJECT_PROPERTY>
-                        </COLLATERAL>
-                    </COLLATERALS>
-                </DEAL>
-            </DEALS>
-        </DEAL_SET>
-    </DEAL_SETS>
-</MESSAGE>
+<MESSAGE MISMOReferenceModelIdentifier="3.4.032420160128" xmlns="http://www.mismo.org/residential/2009/schemas" xmlns:ULAD="http://www.datamodelextension.org/Schema/ULAD" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><ABOUT_VERSIONS><ABOUT_VERSION /></ABOUT_VERSIONS><DEAL_SETS><DEAL_SET><DEALS><DEAL><ASSETS><ASSET><OWNED_PROPERTY><OWNED_PROPERTY_DETAILS><OwnedPropertySubjectIndicator>true</OwnedPropertySubjectIndicator><OwnedPropertyDispositionStatusType>netained
+</OwnedPropertyDispositionStatusType><OwnedPropertyMaintenanceExpenseAmount>022.00 0 &#8212; |
+</OwnedPropertyMaintenanceExpenseAmount><OwnedPropertyLienUPBAmount>85,743.00
+</OwnedPropertyLienUPBAmount></OWNED_PROPERTY_DETAILS><PROPERTY><PROPERTY_DETAIL><PropertyEstimatedValueAmount>90,000.00
+</PropertyEstimatedValueAmount><PropertyUsageType>-rimaryResidence
+</PropertyUsageType></PROPERTY_DETAIL><ADDRESS><AddressLineText>16023 MOUNT PRIETO CIR
+</AddressLineText><CityName>FOUNTAIN VALLEY
+</CityName><PostalCode>92708
+</PostalCode><StateCode>A Z
+</StateCode></ADDRESS><PROPERTY_VALUATIONS><PROPERTY_VALUATION><PROPERTY_VALUATION_DETAIL><PropertyValuationAmount>90,000.00
+</PropertyValuationAmount></PROPERTY_VALUATION_DETAIL></PROPERTY_VALUATION></PROPERTY_VALUATIONS></PROPERTY></OWNED_PROPERTY></ASSET></ASSETS><LIABILITIES><LIABILITY><LIABILITY_DETAILS><LiabilityPaymentIncludesTaxesInsuranceIndicator>false</LiabilityPaymentIncludesTaxesInsuranceIndicator><LiabilityAccountIdentifier>46518919734
+</LiabilityAccountIdentifier><LiabilityType>MortgageLoan</LiabilityType><LiabilityMonthlyPaymentAmount>1,542.00 |
+</LiabilityMonthlyPaymentAmount><LiabilityUnpaidBalanceAmount>85,743.00
+</LiabilityUnpaidBalanceAmount><MortgageType>ynventional | g
+</MortgageType><LiabilityPayoffStatusIndicato>false</LiabilityPayoffStatusIndicato></LIABILITY_DETAILS><LIABILITY_HOLDER><NAME><FullName>JPMCB HOME
+</FullName></NAME></LIABILITY_HOLDER></LIABILITY></LIABILITIES><LOANS><LOAN><LOAN_DETAIL><BorrowerCount>2
+</BorrowerCount></LOAN_DETAIL><TERMS_OF_LOAN><LoanPurposeType>Refinance</LoanPurposeType></TERMS_OF_LOAN></LOAN></LOANS><PARTIES><PARTY><INDIVIDUAL><NAME><FirstName>Johnny</FirstName><LastName>Alduenda
+</LastName></NAME><CONTACT_POINTS><CONTACT_POINT><CONTACT_POINT_TELEPHONE><ContactPointTelephoneValue>(714)469-1089
+</ContactPointTelephoneValue></CONTACT_POINT_TELEPHONE><CONTACT_POINT_DETAIL><ContactPointRoleType>Mobile</ContactPointRoleType></CONTACT_POINT_DETAIL></CONTACT_POINT><CONTACT_POINT><CONTACT_POINT_EMAIL><ContactPointEmailValue>john.alduenda@yahoo.com
+</ContactPointEmailValue></CONTACT_POINT_EMAIL></CONTACT_POINT></CONTACT_POINTS></INDIVIDUAL><ROLES><ROLE><ROLE_DETAIL><PartyRoleType>Borrower</PartyRoleType></ROLE_DETAIL><BORROWER><BORROWER_DETAIL><SelfDeclaredMilitaryServiceIndicator>false</SelfDeclaredMilitaryServiceIndicator><BorrowerBirthDate>1940-08-08</BorrowerBirthDate><MaritalStatusType>Married</MaritalStatusType><DependentCount>0</DependentCount></BORROWER_DETAIL><RESIDENCE><RESIDENCES><ADDRESS><AddressLineText>16023 MOUNT PRIETO CIR
+</AddressLineText><CityName>FOUNTAIN VALLEY
+</CityName><CountryCode>US
+</CountryCode><PostalCode>92708
+</PostalCode><StateCode>CA
+</StateCode></ADDRESS><RESIDENCE_DETAIL><BorrowerResidencyBasisType>Own</BorrowerResidencyBasisType><BorrowerResidencyDurationMonthsCount>540</BorrowerResidencyDurationMonthsCount><BorrowerResidencyType>Current</BorrowerResidencyType></RESIDENCE_DETAIL></RESIDENCES></RESIDENCE><DECLARATION><DECLARATION_DETAIL><CitizenshipResidencyType>U.S. Citizen</CitizenshipResidencyType><EXTENSION><OTHER><ULAD:DECLARATION_DETAIL_tag_EXTENSION><ULAD:SpecialBorrowerSellerRelationshipIndicator>false</ULAD:SpecialBorrowerSellerRelationshipIndicator></ULAD:DECLARATION_DETAIL_tag_EXTENSION></OTHER></EXTENSION><IntentToOccupyType>true</IntentToOccupyType><UndisclosedBorrowedFundsIndicator>false</UndisclosedBorrowedFundsIndicator><UndisclosedMortgageApplicationIndicator>false</UndisclosedMortgageApplicationIndicator><UndisclosedCreditApplicationIndicator>false</UndisclosedCreditApplicationIndicator><PropertyProposedCleanEnergyLienIndicator>false</PropertyProposedCleanEnergyLienIndicator><UndisclosedComakerOfNoteIndicator>false</UndisclosedComakerOfNoteIndicator><OutstandingJudgmentsIndicator>false</OutstandingJudgmentsIndicator><PresentlyDelinquentIndicator>false</PresentlyDelinquentIndicator><PartyToLawsuitIndicator>false</PartyToLawsuitIndicator><PriorPropertyDeedInLieuConveyedIndicator>false</PriorPropertyDeedInLieuConveyedIndicator><PriorPropertyShortSaleCompletedIndicator>false</PriorPropertyShortSaleCompletedIndicator><PriorPropertyForeclosureCompletedIndicator>false</PriorPropertyForeclosureCompletedIndicator><BankruptcyIndicator>false</BankruptcyIndicator></DECLARATION_DETAIL></DECLARATION><CURRENT_INCOME><CURRENT_INCOME_ITEMS><CURRENT_INCOME_ITEM><CURRENT_INCOME_ITEM_DETAILS><IncomeType>Other</IncomeType><CurrentIncomeMonthlyTotalAmount>1,062.50
+</CurrentIncomeMonthlyTotalAmount><EmploymentIncomeIndicator>true</EmploymentIncomeIndicator></CURRENT_INCOME_ITEM_DETAILS></CURRENT_INCOME_ITEM></CURRENT_INCOME_ITEMS></CURRENT_INCOME><EMPLOYERS><EMPLOYER><ADDRESS /><EMPLOYMENT><EmploymentTimeInLineOfWorkMonthsCount>0</EmploymentTimeInLineOfWorkMonthsCount></EMPLOYMENT></EMPLOYER></EMPLOYERS><GOVERNMENT_MONITORING><GOVERNMENT_MONITORING_DETAIL><HMDAEthnicityRefusalIndicator>false</HMDAEthnicityRefusalIndicator><HMDAGenderRefusalIndicator>false</HMDAGenderRefusalIndicator><HMDARaceRefusalIndicator>false</HMDARaceRefusalIndicator><EXTENSION><OTHER><ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION><ULAD:HMDA_ETHNICITIES><ULAD:HMDA_ETHNICITY><ULAD:HMDAEthnicityType>Not Hispanic or Latino</ULAD:HMDAEthnicityType></ULAD:HMDA_ETHNICITY></ULAD:HMDA_ETHNICITIES><ULAD:HMDAGenderType>Male</ULAD:HMDAGenderType></ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION></OTHER></EXTENSION><HMDA_RACES><HMDA_RACE><HMDA_RACE_DETAIL><HMDARaceType>White</HMDARaceType></HMDA_RACE_DETAIL></HMDA_RACE></HMDA_RACES></GOVERNMENT_MONITORING_DETAIL></GOVERNMENT_MONITORING></BORROWER></ROLE></ROLES><ADDRESSES><ADDRESS><AddressLineText>16023 MOUNT PRIETO CIR
+</AddressLineText><AddressType>Mailing</AddressType><CityName>FOUNTAIN VALLEY
+</CityName><CountryCode>US
+</CountryCode><PostalCode>92708
+</PostalCode><StateCode>CA
+</StateCode></ADDRESS></ADDRESSES></PARTY></PARTIES><COLLATERALS><COLLATERAL><SUBJECT_PROPERTY><ADDRESS><AddressLineText>16023 MOUNT PRIETO CIR
+</AddressLineText><CityName>FOUNTAIN VALLEY
+</CityName><CountryName>ORANGE
+</CountryName><PostalCode>92708
+</PostalCode><StateCode>CA
+</StateCode></ADDRESS><PROPERTY_DETAILS><FinancedUnitCount>ee
+</FinancedUnitCount><PropertyEstimatedValueAmount>750,000.00
+</PropertyEstimatedValueAmount><PropertyUsageType>Primary Residence</PropertyUsageType><PropertyMixedUsageIndicator>false</PropertyMixedUsageIndicator><ConstructionMethodType>SiteBuilt</ConstructionMethodType></PROPERTY_DETAILS></SUBJECT_PROPERTY></COLLATERAL></COLLATERALS></DEAL></DEALS></DEAL_SET></DEAL_SETS></MESSAGE>
