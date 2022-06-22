@@ -3,12 +3,10 @@ from datetime import datetime
 import json
 from config import get_project_root
 
-
 case_id = "URLA-Smith"
 
 with open(f'{get_project_root()}/resources/{case_id}.json') as urla_json:
     data = dict(json.load(urla_json))
-
 
 sectionOne = data['section_1']
 sectionTwo = data['section_2']
@@ -30,7 +28,7 @@ def YesNOtoBoolean(value):
 def checkIfJsonExist(dataset, key):
     try:
         value = dataset[key]
-        return value
+        return value.strip('\n')
     except KeyError:
         return None
 
@@ -44,13 +42,10 @@ def createRoot():
     convertToXml(root)
 
 
-
-
 def convertToXml(root):
     tree = ET.ElementTree(root)
     tree.write(f'{get_project_root()}/resources/{case_id}.xml')
     tree.write(f'{get_project_root()}/test_resources/{case_id}.xml')
-
 
 
 def setRootAttributes(root):
@@ -73,10 +68,11 @@ def documentSets(root):
     document_tag = ET.SubElement(documents_tag, 'DOCUMENT')
     signatories_tag = ET.SubElement(document_tag, 'SIGNATORIES')
     signatory_tag = ET.SubElement(signatories_tag, 'SIGNATORY')
-    execution_tag  = ET.SubElement(signatory_tag, 'EXECUTION')
+    execution_tag = ET.SubElement(signatory_tag, 'EXECUTION')
     execution_detail_tag = ET.SubElement(execution_tag, 'EXECUTION_DETAIL')
     # SCE-36 - TAKE UPDATES FROM AZMI
     ET.SubElement(execution_detail_tag, 'ExecutionDate').text = datetime.now().strftime("%Y-%m-%d")
+
 
 # DEAL SETS TAG
 
@@ -87,10 +83,11 @@ def dealSets(root):
     deals_tag = ET.SubElement(deal_set_tag, 'DEALS')
     deal_tag = ET.SubElement(deals_tag, 'DEAL')
     assets(deal_tag)
+    collaterals(deal_tag)
     liabilities(deal_tag)
     loan(deal_tag)
     parties(deal_tag)
-    collaterals(deal_tag)
+
 
 # LOAN TAG
 
@@ -98,6 +95,9 @@ def dealSets(root):
 def assets(deal_tag):
     assets_tag = ET.SubElement(deal_tag, 'ASSETS')
     asset_tag = ET.SubElement(assets_tag, 'ASSET')
+    # Will iterate for sequence when correct json received.
+    asset_tag.set('SequenceNumber', '1111')
+    asset_tag.set('xlink:label', 'ASSET_OWNED_1111')
     ownedProperty(asset_tag)
 
 
@@ -106,10 +106,12 @@ def ownedProperty(asset_tag):
     borrower_owned_property_details = {
         'OwnedPropertySubjectIndicator': 'true',
         'OwnedPropertyDispositionStatusType': checkIfJsonExist(sectionThree, 'borrower_own_property_status'),
-        'OwnedPropertyMaintenanceExpenseAmount': checkIfJsonExist(sectionThree, 'borrower_own_property_monthly_insurance_etc'),
-        'OwnedPropertyRentalIncomeGrossAmount': checkIfJsonExist(sectionThree, 'borrower_own_property_monthly_rental_income'),
-        'OwnedPropertyRentalIncomeNetAmount': checkIfJsonExist(sectionThree, 'borrower_own_property_monthly_rental_income'),
-        'OwnedPropertyRentalIncomeNetAmount': checkIfJsonExist(sectionThree, 'borrower_own_property_monthly_rental_income_for_lender_calculation'),
+        'OwnedPropertyMaintenanceExpenseAmount': checkIfJsonExist(sectionThree,
+                                                                  'borrower_own_property_monthly_insurance_etc'),
+        'OwnedPropertyRentalIncomeGrossAmount': checkIfJsonExist(sectionThree,
+                                                                 'borrower_own_property_monthly_rental_income'),
+        'OwnedPropertyRentalIncomeNetAmount': checkIfJsonExist(sectionThree,
+                                                               'borrower_own_property_monthly_rental_income'),
         'OwnedPropertyLienUPBAmount': checkIfJsonExist(sectionThree, 'borrower_own_property_unpaid_balance')
     }
     owned_property_details_tag = ET.SubElement(
@@ -176,10 +178,12 @@ def liabilities(deal_tag):
 
 def liabilityDetails(liability_tag):
     borrower_liability_details = {
-        'LiabilityPaymentIncludesTaxesInsuranceIndicator': 'false' if checkIfJsonExist(sectionThree, 'borrower_own_property_monthly_insurance_etc') else 'true',
+        'LiabilityPaymentIncludesTaxesInsuranceIndicator': 'false' if checkIfJsonExist(sectionThree,
+                                                                                       'borrower_own_property_monthly_insurance_etc') else 'true',
         'LiabilityAccountIdentifier': checkIfJsonExist(sectionThree, 'borrower_own_property_mortgage_account_number'),
         'LiabilityType': 'MortgageLoan',
-        'LiabilityMonthlyPaymentAmount': checkIfJsonExist(sectionThree, 'borrower_own_property_monthly_mortgage_payment'),
+        'LiabilityMonthlyPaymentAmount': checkIfJsonExist(sectionThree,
+                                                          'borrower_own_property_monthly_mortgage_payment'),
         'LiabilityUnpaidBalanceAmount': checkIfJsonExist(sectionThree, 'borrower_own_property_unpaid_balance'),
         'MortgageType': checkIfJsonExist(sectionThree, 'borrower_own_property_mortgage_type'),
         'LiabilityPayoffStatusIndicato': 'false',
@@ -234,6 +238,7 @@ def subjectProperty(collateral_tag):
     subject_property_tag = ET.SubElement(collateral_tag, 'SUBJECT_PROPERTY')
     subjectPropertyAddress(subject_property_tag)
     subjectPropertyDetails(subject_property_tag)
+    subjectPropertyValuation(subject_property_tag)
 
 
 def subjectPropertyAddress(subject_property_tag):
@@ -259,14 +264,15 @@ def subjectPropertyDetails(subject_property_tag):
         'PropertyEstimatedValueAmount': checkIfJsonExist(sectionFour, 'borrower_property_value'),
         'PropertyUsageType': checkIfJsonExist(sectionFour, 'borrower_property_occupancy'),
         'PropertyMixedUsageIndicator': 'false',
-        'ConstructionMethodType': 'SiteBuilt' if checkIfJsonExist(sectionFour, 'borrower_property_manufactured_home') == 'No' else 'Manufactured'
+        'ConstructionMethodType': 'SiteBuilt' if checkIfJsonExist(sectionFour,
+                                                                  'borrower_property_manufactured_home') == 'No' else 'Manufactured'
     }
 
-    subject_property_details_tag = ET.SubElement(
-        subject_property_tag, 'PROPERTY_DETAILS')
+    subject_property_detail_tag = ET.SubElement(
+        subject_property_tag, 'PROPERTY_DETAIL')
     for key, value in subject_property_details.items():
         if value:
-            ET.SubElement(subject_property_details_tag, key).text = value
+            ET.SubElement(subject_property_detail_tag, key).text = value
 
 
 def subjectPropertyValuation(subject_property_tag):
@@ -287,16 +293,19 @@ def parties(deal_tag):
     parties_tag = ET.SubElement(deal_tag, 'PARTIES')
     party_tag = ET.SubElement(parties_tag, 'PARTY')
     individual(party_tag)
-    roles(party_tag)
     borrowerAddress(party_tag)
+    roles(party_tag)
+    socialSecurityNumber(party_tag)
+
 
 # INDIVIDUAL TAG
 
 
 def individual(party):
     individual_tag = ET.SubElement(party, 'INDIVIDUAL')
-    borrowerName(individual_tag)
     contactPoints(individual_tag)
+    borrowerName(individual_tag)
+
 
 # NAME TAG
 
@@ -307,11 +316,11 @@ def borrowerName(individual_tag):
     if name:
         if name.__contains__('.'):
             prefix = name.find('.')
-            name = name[prefix+1:len(name)].strip()
+            name = name[prefix + 1:len(name)].strip()
         if name.__contains__(','):
             comma = name.find(',')
             lastName = name[0:comma].strip()
-            firstName = name[comma+1:len(name)].strip()
+            firstName = name[comma + 1:len(name)].strip()
         else:
             name_arr = name.split(' ')
             firstName = name_arr[0]
@@ -336,6 +345,7 @@ def borrowerName(individual_tag):
         alias_last_name = ET.SubElement(alias_name, 'LastName')
         alias_last_name.text = borrower_aliases_last_name
 
+
 # CONTACT_POINTS TAG
 
 
@@ -356,7 +366,18 @@ def contactPoints(individual_tag):
                     contact_point_tag, 'CONTACT_POINT_TELEPHONE')
                 contact_point_telephone_value = ET.SubElement(
                     contact_point_telephone_tag, 'ContactPointTelephoneValue')
-                contact_point_telephone_value.text = value
+                if value.__contains__('('):
+                    if value.__contains__(')'):
+                        if value.__contains__('-'):
+                            contact_point_telephone_value.text = value.replace('(','').replace(')','').replace('-','')
+                        else:
+                            contact_point_telephone_value.text = value.replace('(', '').replace(')', '')
+                    else:
+                        contact_point_telephone_value.text = value.replace('(', '')
+                else:
+                    contact_point_telephone_value.text = value
+
+
                 contact_point_detail_tag = ET.SubElement(
                     contact_point_tag, 'CONTACT_POINT_DETAIL')
                 contact_point_role_type = ET.SubElement(
@@ -370,6 +391,7 @@ def contactPoints(individual_tag):
             contact_point_email_value = ET.SubElement(
                 contact_point_email_tag, 'ContactPointEmailValue')
             contact_point_email_value.text = value
+
 
 # ADDRESS TAG
 
@@ -391,24 +413,26 @@ def borrowerAddress(party_tag):
         if value:
             address_detail = ET.SubElement(address_tag, key).text = value
 
+
 # TAX_PAYER_IDENTIFIERS TAG
 
 
-def sociaSecurityNumber():
+def socialSecurityNumber(party_tag):
     social_security_number = checkIfJsonExist(
         sectionOne, 'borrower_social_security_number')
     if social_security_number:
         tax_payer_identifiers_tag = ET.SubElement(
-            party, 'TAX_PAYER_IDENTIFIERS')
+            party_tag, 'TAX_PAYER_IDENTIFIERS')
         tax_payer_identifier_tag = ET.SubElement(
             tax_payer_identifiers_tag, 'TAX_PAYER_IDENTIFIER')
         tax_payer_identifier_type_tag = ET.SubElement(
             tax_payer_identifier_tag, 'TaxpayerIdentifierType')
-        tax_payer_identifier_type.text = 'SocialSecurityNumber'
+        tax_payer_identifier_type_tag.text = 'SocialSecurityNumber'
         tax_payer_identifier_value_tag = ET.SubElement(
             tax_payer_identifier_tag, 'TaxpayerIdentifierValue')
-        tax_payer_identifier_value.text = social_security_number.replace(
+        tax_payer_identifier_value_tag.text = social_security_number.replace(
             '-', '')
+
 
 # ROLES TAG
 
@@ -471,6 +495,7 @@ def borrowerDetails(borrower_tag):
     else:
         borrower_dependents_count_tag.text = '0'
 
+
 # RESIDENCE_DETAIL TAG
 
 
@@ -523,6 +548,7 @@ def landlordDetails():
     # what will be the monthly rent variable in json
     pass
 
+
 # DECLARATION_DETAIL_TAG
 
 
@@ -544,17 +570,26 @@ def borrowerDecralartionDetails(borrower_tag):
 
     borrower_declarations = {
         'IntentToOccupyType': checkIfJsonExist(sectionFive, 'check_borrower_declaration_A_primary_residence'),
-        'UndisclosedBorrowedFundsIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_C_borrowing_money'),
-        'UndisclosedMortgageApplicationIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_D_applying_for_mortgage_loan'),
-        'UndisclosedCreditApplicationIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_D_applying_for_new_credit'),
-        'PropertyProposedCleanEnergyLienIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_E_property_subject_to_lien'),
-        'UndisclosedComakerOfNoteIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_F_co-signer_or_guarantor'),
+        'UndisclosedBorrowedFundsIndicator': checkIfJsonExist(sectionFive,
+                                                              'check_borrower_declaration_C_borrowing_money'),
+        'UndisclosedMortgageApplicationIndicator': checkIfJsonExist(sectionFive,
+                                                                    'check_borrower_declaration_D_applying_for_mortgage_loan'),
+        'UndisclosedCreditApplicationIndicator': checkIfJsonExist(sectionFive,
+                                                                  'check_borrower_declaration_D_applying_for_new_credit'),
+        'PropertyProposedCleanEnergyLienIndicator': checkIfJsonExist(sectionFive,
+                                                                     'check_borrower_declaration_E_property_subject_to_lien'),
+        'UndisclosedComakerOfNoteIndicator': checkIfJsonExist(sectionFive,
+                                                              'check_borrower_declaration_F_co-signer_or_guarantor'),
         'OutstandingJudgmentsIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_G_any_outstanding'),
-        'PresentlyDelinquentIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_H_currently_delinquent'),
+        'PresentlyDelinquentIndicator': checkIfJsonExist(sectionFive,
+                                                         'check_borrower_declaration_H_currently_delinquent'),
         'PartyToLawsuitIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_I_are_you_a_party'),
-        'PriorPropertyDeedInLieuConveyedIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_J_conveyed_title'),
-        'PriorPropertyShortSaleCompletedIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_K_completed_pre-foreclosure'),
-        'PriorPropertyForeclosureCompletedIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_L_property_foreclosed'),
+        'PriorPropertyDeedInLieuConveyedIndicator': checkIfJsonExist(sectionFive,
+                                                                     'check_borrower_declaration_J_conveyed_title'),
+        'PriorPropertyShortSaleCompletedIndicator': checkIfJsonExist(sectionFive,
+                                                                     'check_borrower_declaration_K_completed_pre-foreclosure'),
+        'PriorPropertyForeclosureCompletedIndicator': checkIfJsonExist(sectionFive,
+                                                                       'check_borrower_declaration_L_property_foreclosed'),
         'BankruptcyIndicator': checkIfJsonExist(sectionFive, 'check_borrower_declaration_M_declared_bankruptcy')
 
     }
@@ -567,7 +602,8 @@ def borrowerDecralartionDetails(borrower_tag):
     is_purchase_transaction = checkIfJsonExist(
         sectionFive, 'check_borrower_declaration_B_purchase_transaction')
     if is_purchase_transaction:
-        ET.SubElement(ULAD_declartion_detail_tag, 'ULAD:SpecialBorrowerSellerRelationshipIndicator').text = YesNOtoBoolean(
+        ET.SubElement(ULAD_declartion_detail_tag,
+                      'ULAD:SpecialBorrowerSellerRelationshipIndicator').text = YesNOtoBoolean(
             is_purchase_transaction)
 
 
@@ -718,7 +754,7 @@ def legalEntity(employer_tag):
             legal_entity_contact_point_telephone_value_tag.text = legal_entity_phone
 
 
-def employerIndividualDetails(employer_tag,):
+def employerIndividualDetails(employer_tag, ):
     employer_name = checkIfJsonExist(sectionOne, 'borrower_employer_name')
     employer_phone = checkIfJsonExist(sectionOne, 'borrower_employer_phone')
     if employer_name or employer_phone:
@@ -758,10 +794,13 @@ def borrowerEmploymentDetails(employer_tag):
     employment_details = {
         'EmploymentPositionDescription': checkIfJsonExist(sectionOne, 'borrower_employment_position'),
         'EmploymentStartDate': datetime.strptime(
-            checkIfJsonExist(sectionOne, 'borrower_employment_start_date').strip(), "%m/%d/%Y").strftime("%Y-%m-%d") if checkIfJsonExist(sectionOne, 'borrower_employment_start_date') else '',
+            checkIfJsonExist(sectionOne, 'borrower_employment_start_date').strip(), "%m/%d/%Y").strftime(
+            "%Y-%m-%d") if checkIfJsonExist(sectionOne, 'borrower_employment_start_date') else '',
         'EmploymentTimeInLineOfWorkMonthsCount': str(years_to_months),
-        'SpecialBorrowerEmployerRelationshipIndicator': YesNOtoBoolean(checkIfJsonExist(sectionOne, 'borrower_employed_by_family_member_property_seller_real_estate_agent_other_party_to_the_transaction')),
-        'EmploymentBorrowerSelfEmployedIndicator': YesNOtoBoolean(checkIfJsonExist(sectionOne, 'check_borrower_self_employed')),
+        'SpecialBorrowerEmployerRelationshipIndicator': YesNOtoBoolean(checkIfJsonExist(sectionOne,
+                                                                                        'borrower_employed_by_family_member_property_seller_real_estate_agent_other_party_to_the_transaction')),
+        'EmploymentBorrowerSelfEmployedIndicator': YesNOtoBoolean(
+            checkIfJsonExist(sectionOne, 'check_borrower_self_employed')),
         'OwnershipInterestType': '',
         'EmploymentMonthlyIncomeAmount': ''
     }
