@@ -24,6 +24,10 @@ class MyTestCase(unittest.TestCase):
     def setUp(self):
         self.actual_deal_path = self.actualRoot[1][0][0][0]
         self.converted_deal_path = self.convertedRoot[1][0][0][0]
+        self.actual_party_path = self.actual_deal_path[4][0]
+        self.converted_party_path = self.converted_deal_path[4][0]
+        self.actual_roles_path = self.actual_party_path[3]
+        self.converted_roles_path = self.converted_party_path[2]
 
     def test_YesNoToBoolean(self):
         actual_one = jtox.YesNOtoBoolean('Yes')
@@ -96,11 +100,17 @@ class MyTestCase(unittest.TestCase):
         # Dont have complete info on Loans
         pass
 
-    def test_parties(self):
+    def test_parties_children(self):
+        actual_party_children = [x.tag for x in self.actual_party_path]
+        converted_party_children = [x.tag for x in self.converted_party_path]
+        self.assertEqual(len(converted_party_children), len(actual_party_children))
+        self.assertEqual(converted_party_children, actual_party_children)
+
+    def test_parties_individual_contact_points(self):
         actual_individual_path = self.actual_deal_path[4][0][0]
         converted_individual_path = self.converted_deal_path[4][0][0]
-        self.assertEqual(len(converted_individual_path),len(actual_individual_path))
-        self.assertEqual(converted_individual_path.tag,actual_individual_path.tag)
+        self.assertEqual(len(converted_individual_path), len(actual_individual_path))
+        self.assertEqual(converted_individual_path.tag, actual_individual_path.tag)
         actual_contact_points_path = actual_individual_path[0]
         converted_contact_points_path = converted_individual_path[0]
         actual_contact_points = []
@@ -113,8 +123,73 @@ class MyTestCase(unittest.TestCase):
             for j in range(len(actual_contact_points_path[i])):
                 actual_contact_points.append(actual_contact_points_path[i][j][0].text)
 
-        self.assertEqual(converted_contact_points,actual_contact_points)
+        self.assertEqual(converted_contact_points, actual_contact_points)
 
+    def test_parties_individual_name(self):
+        # Ask Owais Bhai this
+        actual_individual_path = self.actual_deal_path[4][0][0]
+        converted_individual_path = self.converted_deal_path[4][0][0]
+        actual_name_path = actual_individual_path[1]
+        converted_name_path = converted_individual_path[1]
+        actual_name = ''
+        actual_name_tags = []
+        converted_name = ''
+        converted_name_tags = []
+        for i in range(len(converted_name_path)):
+            converted_name += f' {converted_name_path[i].text}'
+            converted_name_tags.append(converted_name_path[i].tag)
+        for i in range(len(actual_name_path)):
+            actual_name += f' {actual_name_path[i].text}'
+            actual_name_tags.append(actual_name_path[i].tag)
+        self.assertEqual(converted_name, actual_name)
+        self.assertEqual(converted_name_tags, actual_name_tags)
+
+    def test_parties_address(self):
+        actual_address_path = self.actual_party_path[1][0]
+        converted_address_path = self.converted_party_path[1][0]
+        actual_address = [x.text for x in actual_address_path]
+        converted_address = [x.text for x in converted_address_path]
+        self.assertEqual(converted_address, actual_address)
+
+    def test_parties_roles_borrower_borrowerDetails(self):
+        actual_borrower_details_path = self.actual_roles_path[0][0][0]
+        converted_borrower_details_path = self.converted_roles_path[0][0][0]
+        actual_borrower_details = [x.text for x in actual_borrower_details_path]
+        converted_borrower_details = [x.text for x in converted_borrower_details_path]
+        actual_borrower_details.sort()
+        converted_borrower_details.sort()
+        self.assertEqual(converted_borrower_details, actual_borrower_details)
+
+    def test_parties_roles_borrower_currentIncome(self):
+        actual_current_income_items_path = self.actual_roles_path[0][0][1][0]
+        converted_current_income_items_path = self.converted_roles_path[0][0][1][0]
+        actual_current_income_items = []
+        converted_current_income_items = []
+        for x in range(len(actual_current_income_items_path)):
+            for y in range(len(actual_current_income_items_path[x])):
+                for z in actual_current_income_items_path[x][y]:
+                    actual_current_income_items.append(z.text)
+        for x in range(len(converted_current_income_items_path)):
+            for y in range(len(converted_current_income_items_path[x])):
+                for z in converted_current_income_items_path[x][y]:
+                    converted_current_income_items.append(z.text)
+
+        actual_current_income_items.sort()
+        converted_current_income_items.sort()
+        self.assertEqual(converted_current_income_items,actual_current_income_items)
+
+    def test_parties_roles_borrower_borrowerDeclarations(self):
+        actual_declarations_path = self.actual_roles_path[0][0][2][0]
+        converted_declarations_path = self.converted_roles_path[0][0][2][0]
+        actual_declarations = [x.text.strip() for x in actual_declarations_path]
+        converted_declarations = [x.text.strip() for x in converted_declarations_path]
+        actual_declarations.pop()
+        converted_declarations.pop()
+        actual_declarations.append(actual_declarations_path.find(f'{self.leadingStr}EXTENSION')[0][0][0].text)
+        converted_declarations.append(converted_declarations_path.find(f'{self.leadingStr}EXTENSION')[0][0][0].text)
+        actual_declarations.sort()
+        converted_declarations.sort()
+        self.assertEqual(converted_declarations,actual_declarations)
 
 
 

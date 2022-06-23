@@ -28,7 +28,7 @@ def YesNOtoBoolean(value):
 def checkIfJsonExist(dataset, key):
     try:
         value = dataset[key]
-        return value.strip('\n')
+        return value.strip()
     except KeyError:
         return None
 
@@ -45,7 +45,7 @@ def createRoot():
 def convertToXml(root):
     tree = ET.ElementTree(root)
     tree.write(f'{get_project_root()}/resources/{case_id}.xml')
-    tree.write(f'{get_project_root()}/test_resources/{case_id}.xml')
+    # tree.write(f'{get_project_root()}/test_resources/{case_id}.xml')
 
 
 def setRootAttributes(root):
@@ -369,14 +369,14 @@ def contactPoints(individual_tag):
                 if value.__contains__('('):
                     if value.__contains__(')'):
                         if value.__contains__('-'):
-                            contact_point_telephone_value.text = value.replace('(','').replace(')','').replace('-','')
+                            contact_point_telephone_value.text = value.replace('(', '').replace(')', '').replace('-',
+                                                                                                                 '')
                         else:
                             contact_point_telephone_value.text = value.replace('(', '').replace(')', '')
                     else:
                         contact_point_telephone_value.text = value.replace('(', '')
                 else:
                     contact_point_telephone_value.text = value
-
 
                 contact_point_detail_tag = ET.SubElement(
                     contact_point_tag, 'CONTACT_POINT_DETAIL')
@@ -440,21 +440,25 @@ def socialSecurityNumber(party_tag):
 def roles(party_tag):
     roles_tag = ET.SubElement(party_tag, 'ROLES')
     role_tag = ET.SubElement(roles_tag, 'ROLE')
+    borrower(role_tag)
+    roleDetails(role_tag)
+
+
+def roleDetails(role_tag):
     role_detail_tag = ET.SubElement(role_tag, 'ROLE_DETAIL')
     party_role_type_tag = ET.SubElement(role_detail_tag, 'PartyRoleType')
     # Not correct yet
     party_role_type_tag.text = 'Borrower'
-    borrower(role_tag)
 
 
 def borrower(role_tag):
     borrower_tag = ET.SubElement(role_tag, 'BORROWER')
     borrowerDetails(borrower_tag)
-    borrowerResidence(borrower_tag)
-    borrowerDecralartionDetails(borrower_tag)
     borrowerCurrentIncome(borrower_tag)
+    borrowerDecralartionDetails(borrower_tag)
     borrowerEmployer(borrower_tag)
     governmentMonitoring(borrower_tag)
+    borrowerResidence(borrower_tag)
 
 
 # BORROWER_DETAIL TAG
@@ -558,11 +562,7 @@ def borrowerDecralartionDetails(borrower_tag):
         declaration_tag, 'DECLARATION_DETAIL')
     residency_type_tag = ET.SubElement(
         declaration_detail_tag, 'CitizenshipResidencyType')
-    declaration_extension_tag = ET.SubElement(
-        declaration_detail_tag, 'EXTENSION')
-    extension_other_tag = ET.SubElement(declaration_extension_tag, 'OTHER')
-    ULAD_declartion_detail_tag = ET.SubElement(
-        extension_other_tag, 'ULAD:DECLARATION_DETAIL_tag_EXTENSION')
+
 
     citizenship = checkIfJsonExist(sectionOne, 'borrower_citizenship')
     if citizenship:
@@ -601,6 +601,11 @@ def borrowerDecralartionDetails(borrower_tag):
 
     is_purchase_transaction = checkIfJsonExist(
         sectionFive, 'check_borrower_declaration_B_purchase_transaction')
+    declaration_extension_tag = ET.SubElement(
+        declaration_detail_tag, 'EXTENSION')
+    extension_other_tag = ET.SubElement(declaration_extension_tag, 'OTHER')
+    ULAD_declartion_detail_tag = ET.SubElement(
+        extension_other_tag, 'ULAD:DECLARATION_DETAIL_tag_EXTENSION')
     if is_purchase_transaction:
         ET.SubElement(ULAD_declartion_detail_tag,
                       'ULAD:SpecialBorrowerSellerRelationshipIndicator').text = YesNOtoBoolean(
