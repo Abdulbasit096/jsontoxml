@@ -206,7 +206,7 @@
                                                             <CONTACT_POINTS>
                                                                 <CONTACT_POINT>
                                                                     <CONTACT_POINT_TELEPHONE>
-                                                                        <ContactPointTelephoneValue>(707)334-7059
+                                                                        <ContactPointTelephoneValue>7073347059
                                                                         </ContactPointTelephoneValue>
                                                                     </CONTACT_POINT_TELEPHONE>
                                                                 </CONTACT_POINT>
@@ -231,7 +231,7 @@
                                                 </INDIVIDUAL>
                                                 <ADDRESS>
                                                     <AddressLineText>10509 Vista Sorrento Pkwy</AddressLineText>
-                                                    <CityName>San dieao</CityName>
+                                                    <CityName>San diego</CityName>
                                                     <StateCode>CA</StateCode>
                                                     <PostalCode>92121</PostalCode>
                                                     <CountryCode>US</CountryCode>
@@ -246,6 +246,7 @@
                                                     </SpecialBorrowerEmployerRelationshipIndicator>
                                                     <EmploymentBorrowerSelfEmployedIndicator>false
                                                     </EmploymentBorrowerSelfEmployedIndicator>
+                                                    <EmploymentStatusType>Current</EmploymentStatusType>
                                                 </EMPLOYMENT>
                                             </EMPLOYER>
                                         </EMPLOYERS>
@@ -264,28 +265,37 @@
                                                 <EXTENSION>
                                                     <OTHER>
                                                         <ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION>
-                                                            <ULAD:HMDA_ETHNICITIES>
-                                                                <ULAD:HMDA_ETHNICITY>
-                                                                    <ULAD:HMDAEthnicityType>Hispanic or Latino
-                                                                    </ULAD:HMDAEthnicityType>
-                                                                </ULAD:HMDA_ETHNICITY>
-                                                            </ULAD:HMDA_ETHNICITIES>
+                                                            <ULAD:ApplicationTakenMethodType>FaceToFace
+                                                            </ULAD:ApplicationTakenMethodType>
                                                             <ULAD:HMDAGenderType>Male</ULAD:HMDAGenderType>
                                                         </ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION>
                                                     </OTHER>
                                                 </EXTENSION>
-                                                <HMDA_ETHNICITY_ORIGINS>
-                                                    <HMDAEthnicityOriginType>Mexican</HMDAEthnicityOriginType>
-                                                </HMDA_ETHNICITY_ORIGINS>
-                                                <HMDA_ETHNICITY_ORIGIN/>
-                                                <HMDA_RACES>
-                                                    <HMDA_RACE>
-                                                        <HMDA_RACE_DETAIL>
-                                                            <HMDARaceType>White</HMDARaceType>
-                                                        </HMDA_RACE_DETAIL>
-                                                    </HMDA_RACE>
-                                                </HMDA_RACES>
                                             </GOVERNMENT_MONITORING_DETAIL>
+                                            <HMDA_ETHNICITY_ORIGINS>
+                                                <HMDA_ETHNICITY_ORIGIN>
+                                                    <HMDAEthnicityOriginType>Mexican</HMDAEthnicityOriginType>
+                                                </HMDA_ETHNICITY_ORIGIN>
+                                            </HMDA_ETHNICITY_ORIGINS>
+                                            <HMDA_RACES>
+                                                <HMDA_RACE>
+                                                    <HMDA_RACE_DETAIL>
+                                                        <HMDARaceType>White</HMDARaceType>
+                                                    </HMDA_RACE_DETAIL>
+                                                </HMDA_RACE>
+                                            </HMDA_RACES>
+                                            <EXTENSION>
+                                                <OTHER>
+                                                    <ULAD:GOVERNMENT_MONITORING_EXTENSION>
+                                                        <ULAD:HMDA_ETHNICITIES>
+                                                            <ULAD:HMDA_ETHNICITY>
+                                                                <ULAD:HMDAEthnicityType>HispanicOrLatino
+                                                                </ULAD:HMDAEthnicityType>
+                                                            </ULAD:HMDA_ETHNICITY>
+                                                        </ULAD:HMDA_ETHNICITIES>
+                                                    </ULAD:GOVERNMENT_MONITORING_EXTENSION>
+                                                </OTHER>
+                                            </EXTENSION>
                                         </GOVERNMENT_MONITORING>
                                         <RESIDENCE>
                                             <RESIDENCES>
@@ -330,7 +340,7 @@
                         <SIGNATORY>
                             <EXECUTION>
                                 <EXECUTION_DETAIL>
-                                    <ExecutionDate>2022-06-23</ExecutionDate>
+                                    <ExecutionDate>2022-06-25</ExecutionDate>
                                 </EXECUTION_DETAIL>
                             </EXECUTION>
                         </SIGNATORY>

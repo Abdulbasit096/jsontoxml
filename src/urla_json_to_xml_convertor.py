@@ -19,10 +19,10 @@ sectionEight = data['section_8']
 
 
 def YesNOtoBoolean(value):
-    if value is None:
-        return None
-    else:
+    if value:
         return 'true' if value.lower() == 'yes' else 'false'
+    else:
+        return None
 
 
 def checkIfJsonExist(dataset, key):
@@ -45,7 +45,7 @@ def createRoot():
 def convertToXml(root):
     tree = ET.ElementTree(root)
     tree.write(f'{get_project_root()}/resources/{case_id}.xml')
-    # tree.write(f'{get_project_root()}/test_resources/{case_id}.xml')
+    tree.write(f'{get_project_root()}/test_resources/{case_id}.xml')
 
 
 def setRootAttributes(root):
@@ -334,15 +334,15 @@ def borrowerName(individual_tag):
         last_name_tag = ET.SubElement(name_tag, 'LastName')
         last_name_tag.text = borrower_last_name
     if alias:
-        borrower_aliases_list = borrower_alias.split(' ')
+        borrower_aliases_list = alias.split(' ')
         borrower_aliases_first_name = borrower_aliases_list[0]
         borrower_aliases_last_name = borrower_aliases_list[1]
         aliases_tag = ET.SubElement(name, 'ALIASES')
-        alias_tag = ET.SubElement(aliases, 'ALIAS')
+        alias_tag = ET.SubElement(aliases_tag, 'ALIAS')
         alias_name_tag = ET.SubElement(alias, 'NAME')
-        alias_first_name = ET.SubElement(alias_name, 'FirstName')
+        alias_first_name = ET.SubElement(alias_name_tag, 'FirstName')
         alias_first_name.text = borrower_aliases_first_name
-        alias_last_name = ET.SubElement(alias_name, 'LastName')
+        alias_last_name = ET.SubElement(alias_name_tag, 'LastName')
         alias_last_name.text = borrower_aliases_last_name
 
 
@@ -563,7 +563,6 @@ def borrowerDecralartionDetails(borrower_tag):
     residency_type_tag = ET.SubElement(
         declaration_detail_tag, 'CitizenshipResidencyType')
 
-
     citizenship = checkIfJsonExist(sectionOne, 'borrower_citizenship')
     if citizenship:
         residency_type_tag.text = citizenship
@@ -656,6 +655,13 @@ def borrowerEmployer(borrower_tag):
 def governmentMonitoring(borrower_tag):
     government_monitoring_tag = ET.SubElement(
         borrower_tag, 'GOVERNMENT_MONITORING')
+    governmentMonitoringDetail(government_monitoring_tag)
+    hmdaEthnicityOrigin(government_monitoring_tag)
+    hmdaRace(government_monitoring_tag)
+    governmentMonitoringExtension(government_monitoring_tag)
+
+
+def governmentMonitoringDetail(government_monitoring_tag):
     government_monitoring_detail_tag = ET.SubElement(
         government_monitoring_tag, 'GOVERNMENT_MONITORING_DETAIL')
 
@@ -680,52 +686,71 @@ def governmentMonitoring(borrower_tag):
     for key, value in government_monitoring_details.items():
         if value:
             ET.SubElement(government_monitoring_detail_tag, key).text = value
-
-    governmentMonitoringExtension(government_monitoring_detail_tag)
-    hmdaEthnicityOrigin(government_monitoring_detail_tag)
-    hmdaRace(government_monitoring_detail_tag)
+    governmentMonitoringDetailExtension(government_monitoring_detail_tag)
 
 
-def hmdaEthnicityOrigin(government_monitoring_detail_tag):
+def governmentMonitoringDetailExtension(government_monitoring_detail_tag):
+    demographic_information_through = checkIfJsonExist(sectionEight, 'borrower_demographic_information_through')
+    borrower_sex = checkIfJsonExist(sectionEight, 'borrower_sex')
+    if demographic_information_through:
+        if len(demographic_information_through.split(' ')) > 1:
+            demographic_information_through = demographic_information_through.split(' ')[0].title()
+        if demographic_information_through.__contains__('-'):
+            demographic_information_through = demographic_information_through.title().replace('-', '')
+        government_monitoring_detail_extension_tag = ET.SubElement(
+            government_monitoring_detail_tag, 'EXTENSION')
+        government_monitoring_detail_extension_other_tag = ET.SubElement(
+            government_monitoring_detail_extension_tag, 'OTHER')
+        ulad_government_monitoring_detail_extension_tag = ET.SubElement(government_monitoring_detail_extension_other_tag,'ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION')
+        ET.SubElement(ulad_government_monitoring_detail_extension_tag,
+                      'ULAD:ApplicationTakenMethodType').text = demographic_information_through
+        if borrower_sex:
+            ET.SubElement(ulad_government_monitoring_detail_extension_tag,
+                      'ULAD:HMDAGenderType').text = borrower_sex
+
+
+def hmdaEthnicityOrigin(government_monitoring_tag):
     hospinic_or_latino = checkIfJsonExist(
         sectionEight, 'borrower_hispanic_or_latino_subcategory')
     if hospinic_or_latino:
         hmda_ethnicity_origins_tag = ET.SubElement(
-            government_monitoring_detail_tag, 'HMDA_ETHNICITY_ORIGINS')
+            government_monitoring_tag, 'HMDA_ETHNICITY_ORIGINS')
         hmda_ethnicity_origin_tag = ET.SubElement(
-            government_monitoring_detail_tag, 'HMDA_ETHNICITY_ORIGIN')
-        ET.SubElement(hmda_ethnicity_origins_tag,
+            hmda_ethnicity_origins_tag, 'HMDA_ETHNICITY_ORIGIN')
+        ET.SubElement(hmda_ethnicity_origin_tag,
                       'HMDAEthnicityOriginType').text = hospinic_or_latino
 
 
-def hmdaRace(government_monitoring_detail_tag):
+def hmdaRace(government_monitoring_tag):
     borrower_race = checkIfJsonExist(sectionEight, 'borrower_race')
     if borrower_race:
         hmda_races_tag = ET.SubElement(
-            government_monitoring_detail_tag, 'HMDA_RACES')
+            government_monitoring_tag, 'HMDA_RACES')
         hmda_race_tag = ET.SubElement(hmda_races_tag, 'HMDA_RACE')
         hmda_race_detail_tag = ET.SubElement(hmda_race_tag, 'HMDA_RACE_DETAIL')
         ET.SubElement(hmda_race_detail_tag,
                       'HMDARaceType').text = borrower_race
 
 
-def governmentMonitoringExtension(government_monitoring_detail_tag):
-    borrower_sex = checkIfJsonExist(sectionEight, 'borrower_sex')
+def governmentMonitoringExtension(government_monitoring_tag):
     borrower_ethnicity = checkIfJsonExist(sectionEight, 'borrower_ethnicity')
-    if borrower_ethnicity or borrower_sex:
+    if borrower_ethnicity:
+        if len(borrower_ethnicity.split(' ')) > 1:
+            borrower_ethnicity=borrower_ethnicity.title().replace(' ', '')
+        else:
+            borrower_ethnicity=borrower_ethnicity.title()
+
         government_monitoring_extension_tag = ET.SubElement(
-            government_monitoring_detail_tag, 'EXTENSION')
+            government_monitoring_tag, 'EXTENSION')
         extension_other_tag = ET.SubElement(
             government_monitoring_extension_tag, 'OTHER')
         ulad_government_monitoring_extension_tag = ET.SubElement(
-            extension_other_tag, 'ULAD:GOVERNMENT_MONITORING_DETAIL_EXTENSION')
+            extension_other_tag, 'ULAD:GOVERNMENT_MONITORING_EXTENSION')
         ulad_ethnicities_tag = ET.SubElement(
             ulad_government_monitoring_extension_tag, 'ULAD:HMDA_ETHNICITIES')
         ulad_ethnicity_tag = ET.SubElement(
             ulad_ethnicities_tag, 'ULAD:HMDA_ETHNICITY')
-        if borrower_sex:
-            ET.SubElement(ulad_government_monitoring_extension_tag,
-                          'ULAD:HMDAGenderType').text = borrower_sex
+
         # IF other is selected -- Not included
         if borrower_ethnicity:
             ET.SubElement(ulad_ethnicity_tag,
@@ -753,10 +778,24 @@ def legalEntity(employer_tag):
             legal_entity_contact_points_tag, 'CONTACT_POINT')
         legal_entity_contact_point_telephone_tag = ET.SubElement(
             legal_entity_contact_point_tag, 'CONTACT_POINT_TELEPHONE')
+        legal_entity_contact_point_telephone_value_tag = ET.SubElement(
+            legal_entity_contact_point_telephone_tag, 'ContactPointTelephoneValue')
         if legal_entity_phone:
-            legal_entity_contact_point_telephone_value_tag = ET.SubElement(
-                legal_entity_contact_point_telephone_tag, 'ContactPointTelephoneValue')
-            legal_entity_contact_point_telephone_value_tag.text = legal_entity_phone
+            if legal_entity_phone.__contains__('('):
+                if legal_entity_phone.__contains__(')'):
+                    if legal_entity_phone.__contains__('-'):
+                        legal_entity_contact_point_telephone_value_tag.text = legal_entity_phone.replace('(',
+                                                                                                         '').replace(
+                            ')', '').replace('-',
+                                             '')
+                    else:
+                        legal_entity_contact_point_telephone_value_tag.text = legal_entity_phone.replace('(',
+                                                                                                         '').replace(
+                            ')', '')
+                else:
+                    legal_entity_contact_point_telephone_value_tag.text = legal_entity_phone.replace('(', '')
+            else:
+                legal_entity_contact_point_telephone_value_tag.text = legal_entity_phone
 
 
 def employerIndividualDetails(employer_tag, ):
@@ -806,6 +845,8 @@ def borrowerEmploymentDetails(employer_tag):
                                                                                         'borrower_employed_by_family_member_property_seller_real_estate_agent_other_party_to_the_transaction')),
         'EmploymentBorrowerSelfEmployedIndicator': YesNOtoBoolean(
             checkIfJsonExist(sectionOne, 'check_borrower_self_employed')),
+        'EmploymentStatusType': 'Current' if checkIfJsonExist(sectionOne,
+                                                              'check_borrower_self_employed') == 'No' else 'Unknown',
         'OwnershipInterestType': '',
         'EmploymentMonthlyIncomeAmount': ''
     }

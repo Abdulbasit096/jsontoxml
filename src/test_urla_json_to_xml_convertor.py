@@ -11,6 +11,7 @@ class MyTestCase(unittest.TestCase):
     def setUpClass(cls):
         cls.case_id = jtox.case_id
         cls.leadingStr = '{http://www.mismo.org/residential/2009/schemas}'
+        cls.uladLeadingStr = '{http://www.datamodelextension.org/Schema/ULAD}'
         cls.convertedXml = open(f'{get_project_root()}/test_resources/{cls.case_id}.xml', 'r')
         cls.convertedRoot = ET.parse(cls.convertedXml).getroot()
         cls.actualXml = open(f'{get_project_root()}/test_resources/{cls.case_id}_actual.xml', 'r')
@@ -71,13 +72,11 @@ class MyTestCase(unittest.TestCase):
         # Dont have complete info on Assets
         pass
 
-    def test_collaterals(self):
+    def test_collaterals_tag(self):
         actual_collaterals_path = self.actual_deal_path[1][0][0]
         converted_collaterals_path = self.converted_deal_path[1][0][0]
         actual_collateral_children = [x.tag for x in actual_collaterals_path]
         converted_collateral_children = [x.tag for x in converted_collaterals_path]
-        self.assertEqual(len(converted_collateral_children), len(actual_collateral_children))
-        self.assertEqual(converted_collateral_children, actual_collateral_children)
         actual_address = [x.text for x in actual_collaterals_path.find(f'{actual_collateral_children[0]}')]
         actual_property_details = [x.text for x in actual_collaterals_path.find(f'{actual_collateral_children[1]}')]
         actual_property_valuations = [x.text for x in
@@ -88,6 +87,8 @@ class MyTestCase(unittest.TestCase):
         converted_property_valuations = [x.text for x in
                                          converted_collaterals_path.find(f'{converted_collateral_children[2]}')[0][0][
                                              0]]
+        self.assertEqual(len(converted_collateral_children), len(actual_collateral_children))
+        self.assertEqual(converted_collateral_children, actual_collateral_children)
         self.assertEqual(converted_address, actual_address)
         self.assertEqual(converted_property_details, actual_property_details)
         self.assertEqual(converted_property_valuations, actual_property_valuations)
@@ -106,7 +107,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(len(converted_party_children), len(actual_party_children))
         self.assertEqual(converted_party_children, actual_party_children)
 
-    def test_parties_individual_contact_points(self):
+    def test_parties_individual_contact_points_tag(self):
         actual_individual_path = self.actual_deal_path[4][0][0]
         converted_individual_path = self.converted_deal_path[4][0][0]
         self.assertEqual(len(converted_individual_path), len(actual_individual_path))
@@ -125,7 +126,7 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(converted_contact_points, actual_contact_points)
 
-    def test_parties_individual_name(self):
+    def test_parties_individual_name_tag(self):
         # Ask Owais Bhai this
         actual_individual_path = self.actual_deal_path[4][0][0]
         converted_individual_path = self.converted_deal_path[4][0][0]
@@ -144,14 +145,14 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(converted_name, actual_name)
         self.assertEqual(converted_name_tags, actual_name_tags)
 
-    def test_parties_address(self):
+    def test_parties_address_tag(self):
         actual_address_path = self.actual_party_path[1][0]
         converted_address_path = self.converted_party_path[1][0]
         actual_address = [x.text for x in actual_address_path]
         converted_address = [x.text for x in converted_address_path]
         self.assertEqual(converted_address, actual_address)
 
-    def test_parties_roles_borrower_borrowerDetails(self):
+    def test_parties_roles_borrower_borrowerDetails_tag(self):
         actual_borrower_details_path = self.actual_roles_path[0][0][0]
         converted_borrower_details_path = self.converted_roles_path[0][0][0]
         actual_borrower_details = [x.text for x in actual_borrower_details_path]
@@ -160,7 +161,7 @@ class MyTestCase(unittest.TestCase):
         converted_borrower_details.sort()
         self.assertEqual(converted_borrower_details, actual_borrower_details)
 
-    def test_parties_roles_borrower_currentIncome(self):
+    def test_parties_roles_borrower_currentIncome_tag(self):
         actual_current_income_items_path = self.actual_roles_path[0][0][1][0]
         converted_current_income_items_path = self.converted_roles_path[0][0][1][0]
         actual_current_income_items = []
@@ -176,9 +177,9 @@ class MyTestCase(unittest.TestCase):
 
         actual_current_income_items.sort()
         converted_current_income_items.sort()
-        self.assertEqual(converted_current_income_items,actual_current_income_items)
+        self.assertEqual(converted_current_income_items, actual_current_income_items)
 
-    def test_parties_roles_borrower_borrowerDeclarations(self):
+    def test_parties_roles_borrower_borrowerDeclarations_tag(self):
         actual_declarations_path = self.actual_roles_path[0][0][2][0]
         converted_declarations_path = self.converted_roles_path[0][0][2][0]
         actual_declarations = [x.text.strip() for x in actual_declarations_path]
@@ -189,9 +190,76 @@ class MyTestCase(unittest.TestCase):
         converted_declarations.append(converted_declarations_path.find(f'{self.leadingStr}EXTENSION')[0][0][0].text)
         actual_declarations.sort()
         converted_declarations.sort()
-        self.assertEqual(converted_declarations,actual_declarations)
+        self.assertEqual(converted_declarations, actual_declarations)
 
+    def test_parties_roles_borrower_employers_tag(self):
+        actual_employer_path = self.actual_roles_path[0][0][3][0]
+        converted_employer_path = self.converted_roles_path[0][0][3][0]
+        actual_employer_address = []
+        converted_employer_address = []
+        actual_employment_details = []
+        converted_employment_details = []
+        for i in actual_employer_path.find(f'{self.leadingStr}ADDRESS'):
+            actual_employer_address.append(i.text)
+        for i in converted_employer_path.find(f'{self.leadingStr}ADDRESS'):
+            converted_employer_address.append(i.text)
+        actual_employer_address.sort()
+        converted_employer_address.sort()
+        for i in actual_employer_path.find(f'{self.leadingStr}EMPLOYMENT'):
+            actual_employment_details.append(i.text)
+        for i in converted_employer_path.find(f'{self.leadingStr}EMPLOYMENT'):
+            converted_employment_details.append(i.text.strip())
+        actual_employment_details.pop()
+        actual_employment_details.sort()
+        converted_employment_details.sort()
+        # Comparing legal entity names
+        self.assertEqual(converted_employer_path[0][0][0].text, actual_employer_path[0][1][0].text)
+        # Comparing legal entity contacts
+        self.assertEqual(converted_employer_path[0][1][0][0][0][0][0].text.strip(),
+                         actual_employer_path[0][0][0][0][0][0][0].text.strip())
+        self.assertEqual(converted_employer_address, actual_employer_address)
+        self.assertEqual(converted_employment_details, actual_employment_details)
 
+    def test_parties_roles_borrower_gov_monitoring_tag(self):
+        actual_gov_monitoring_path = self.actual_roles_path[0][0][4]
+        converted_gov_monitoring_path = self.converted_roles_path[0][0][4]
+        actual_gov_monitoring_details = {x.tag: x.text for x in actual_gov_monitoring_path.find(
+            f'{self.leadingStr}GOVERNMENT_MONITORING_DETAIL')}
+        converted_gov_monitoring_details = {x.tag: x.text for x in converted_gov_monitoring_path.find(
+            f'{self.leadingStr}GOVERNMENT_MONITORING_DETAIL')}
+        del actual_gov_monitoring_details[f'{self.leadingStr}EXTENSION']
+        del converted_gov_monitoring_details[f'{self.leadingStr}EXTENSION']
+        actual_gov_monitoring_details_extension = {x.tag: x.text for x in actual_gov_monitoring_path.find(
+            f'{self.leadingStr}GOVERNMENT_MONITORING_DETAIL').find(f'{self.leadingStr}EXTENSION').find(
+            f'{self.leadingStr}OTHER')[0]}
+        converted_gov_monitoring_details_extension = {x.tag: x.text.strip() for x in converted_gov_monitoring_path.find(
+            f'{self.leadingStr}GOVERNMENT_MONITORING_DETAIL').find(f'{self.leadingStr}EXTENSION').find(
+            f'{self.leadingStr}OTHER')[0]}
+        actual_hmda_ethnicity_origin_type = {x.tag: x.text for x in actual_gov_monitoring_path.find(
+            f'{self.leadingStr}HMDA_ETHNICITY_ORIGINS')[0][0]}
+        converted_hmda_ethnicity_origin_type = {x.tag: x.text for x in converted_gov_monitoring_path.find(
+            f'{self.leadingStr}HMDA_ETHNICITY_ORIGINS')[0][0]}
+        actual_hmda_race_type = {x.tag: x.text for x in
+                                 actual_gov_monitoring_path.find(f'{self.leadingStr}HMDA_RACES')[0][0]}
+        converted_hmda_race_type = {x.tag: x.text for x in
+                                    converted_gov_monitoring_path.find(f'{self.leadingStr}HMDA_RACES')[0][0]}
+        actual_gov_monitoring_extension_path = actual_gov_monitoring_path.find(f'{self.leadingStr}EXTENSION').find(
+            f'{self.leadingStr}OTHER').find(f'{self.uladLeadingStr}GOVERNMENT_MONITORING_EXTENSION')
+        converted_gov_monitoring_extension = converted_gov_monitoring_path.find(f'{self.leadingStr}EXTENSION').find(
+            f'{self.leadingStr}OTHER').find(f'{self.uladLeadingStr}GOVERNMENT_MONITORING_EXTENSION')
+        actual_gov_monitoring_extension_details = {}
+        converted_gov_monitoring_extension_details = {}
+        for i in range(len(actual_gov_monitoring_extension_path)):
+            actual_gov_monitoring_extension_details[actual_gov_monitoring_extension_path[i][0][0].tag] = \
+                actual_gov_monitoring_extension_path[i][0][0].text
+        for i in range(len(converted_gov_monitoring_extension)):
+            converted_gov_monitoring_extension_details[converted_gov_monitoring_extension[i][0][0].tag] = \
+                converted_gov_monitoring_extension[i][0][0].text
+        self.assertEqual(converted_gov_monitoring_details, actual_gov_monitoring_details)
+        self.assertEqual(converted_gov_monitoring_details_extension, actual_gov_monitoring_details_extension)
+        self.assertEqual(converted_hmda_ethnicity_origin_type, actual_hmda_ethnicity_origin_type)
+        self.assertEqual(converted_hmda_race_type, actual_hmda_race_type)
+        self.assertEqual(converted_gov_monitoring_extension_details, actual_gov_monitoring_extension_details)
 
 
 if __name__ == '__main__':
