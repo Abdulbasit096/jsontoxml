@@ -101,17 +101,22 @@ class MyTestCase(unittest.TestCase):
         # Dont have complete info on Loans
         pass
 
-    def test_parties_children(self):
+    def test_number_of_parties(self):
+        actual_party_path = self.actual_deal_path[4]
+        converted_party_path = self.converted_deal_path[4]
+        self.assertEqual(len(actual_party_path), len(converted_party_path))
+
+    def test_party_children(self):
         actual_party_children = [x.tag for x in self.actual_party_path]
         converted_party_children = [x.tag for x in self.converted_party_path]
-        self.assertEqual(len(converted_party_children), len(actual_party_children))
+        self.assertEqual(len(actual_party_children), len(converted_party_children))
         self.assertEqual(converted_party_children, actual_party_children)
 
-    def test_parties_individual_contact_points_tag(self):
+    def test_party_individual_contact_points_tag(self):
         actual_individual_path = self.actual_deal_path[4][0][0]
         converted_individual_path = self.converted_deal_path[4][0][0]
-        self.assertEqual(len(converted_individual_path), len(actual_individual_path))
-        self.assertEqual(converted_individual_path.tag, actual_individual_path.tag)
+        self.assertEqual(len(actual_individual_path), len(converted_individual_path))
+        self.assertEqual(actual_individual_path.tag, converted_individual_path.tag)
         actual_contact_points_path = actual_individual_path[0]
         converted_contact_points_path = converted_individual_path[0]
         actual_contact_points = []
@@ -124,44 +129,39 @@ class MyTestCase(unittest.TestCase):
             for j in range(len(actual_contact_points_path[i])):
                 actual_contact_points.append(actual_contact_points_path[i][j][0].text)
 
-        self.assertEqual(converted_contact_points, actual_contact_points)
+        self.assertEqual(actual_contact_points, converted_contact_points)
 
-    def test_parties_individual_name_tag(self):
+    def test_party_individual_name_tag(self):
         # Ask Owais Bhai this
         actual_individual_path = self.actual_deal_path[4][0][0]
         converted_individual_path = self.converted_deal_path[4][0][0]
         actual_name_path = actual_individual_path[1]
         converted_name_path = converted_individual_path[1]
-        actual_name = ''
-        actual_name_tags = []
-        converted_name = ''
-        converted_name_tags = []
+        actual_name = {}
+        converted_name = {}
         for i in range(len(converted_name_path)):
-            converted_name += f' {converted_name_path[i].text}'
-            converted_name_tags.append(converted_name_path[i].tag)
+            converted_name[converted_name_path[i].tag] = converted_name_path[i].text
         for i in range(len(actual_name_path)):
-            actual_name += f' {actual_name_path[i].text}'
-            actual_name_tags.append(actual_name_path[i].tag)
-        self.assertEqual(converted_name, actual_name)
-        self.assertEqual(converted_name_tags, actual_name_tags)
+            actual_name[actual_name_path[i].tag] = actual_name_path[i].text
+        self.assertEqual(actual_name, converted_name)
 
-    def test_parties_address_tag(self):
+    def test_party_address_tag(self):
         actual_address_path = self.actual_party_path[1][0]
         converted_address_path = self.converted_party_path[1][0]
-        actual_address = [x.text for x in actual_address_path]
-        converted_address = [x.text for x in converted_address_path]
-        self.assertEqual(converted_address, actual_address)
+        actual_address = {x.tag:x.text for x in actual_address_path}
+        converted_address = {x.tag:x.text for x in converted_address_path}
+        self.assertEqual(actual_address, converted_address)
 
-    def test_parties_roles_borrower_borrowerDetails_tag(self):
+    def test_party_roles_borrower_borrowerDetails_tag(self):
         actual_borrower_details_path = self.actual_roles_path[0][0][0]
         converted_borrower_details_path = self.converted_roles_path[0][0][0]
         actual_borrower_details = [x.text for x in actual_borrower_details_path]
         converted_borrower_details = [x.text for x in converted_borrower_details_path]
         actual_borrower_details.sort()
         converted_borrower_details.sort()
-        self.assertEqual(converted_borrower_details, actual_borrower_details)
+        self.assertEqual(actual_borrower_details, converted_borrower_details)
 
-    def test_parties_roles_borrower_currentIncome_tag(self):
+    def test_party_roles_borrower_currentIncome_tag(self):
         actual_current_income_items_path = self.actual_roles_path[0][0][1][0]
         converted_current_income_items_path = self.converted_roles_path[0][0][1][0]
         actual_current_income_items = []
@@ -177,9 +177,9 @@ class MyTestCase(unittest.TestCase):
 
         actual_current_income_items.sort()
         converted_current_income_items.sort()
-        self.assertEqual(converted_current_income_items, actual_current_income_items)
+        self.assertEqual(actual_current_income_items, converted_current_income_items)
 
-    def test_parties_roles_borrower_borrowerDeclarations_tag(self):
+    def test_party_roles_borrower_borrowerDeclarations_tag(self):
         actual_declarations_path = self.actual_roles_path[0][0][2][0]
         converted_declarations_path = self.converted_roles_path[0][0][2][0]
         actual_declarations = [x.text.strip() for x in actual_declarations_path]
@@ -190,9 +190,9 @@ class MyTestCase(unittest.TestCase):
         converted_declarations.append(converted_declarations_path.find(f'{self.leadingStr}EXTENSION')[0][0][0].text)
         actual_declarations.sort()
         converted_declarations.sort()
-        self.assertEqual(converted_declarations, actual_declarations)
+        self.assertEqual(actual_declarations, converted_declarations)
 
-    def test_parties_roles_borrower_employers_tag(self):
+    def test_party_roles_borrower_employers_tag(self):
         actual_employer_path = self.actual_roles_path[0][0][3][0]
         converted_employer_path = self.converted_roles_path[0][0][3][0]
         actual_employer_address = []
@@ -218,9 +218,9 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(converted_employer_path[0][1][0][0][0][0][0].text.strip(),
                          actual_employer_path[0][0][0][0][0][0][0].text.strip())
         self.assertEqual(converted_employer_address, actual_employer_address)
-        self.assertEqual(converted_employment_details, actual_employment_details)
+        self.assertEqual(actual_employment_details, converted_employment_details)
 
-    def test_parties_roles_borrower_gov_monitoring_tag(self):
+    def test_party_roles_borrower_gov_monitoring_tag(self):
         actual_gov_monitoring_path = self.actual_roles_path[0][0][4]
         converted_gov_monitoring_path = self.converted_roles_path[0][0][4]
         actual_gov_monitoring_details = {x.tag: x.text for x in actual_gov_monitoring_path.find(
@@ -255,11 +255,37 @@ class MyTestCase(unittest.TestCase):
         for i in range(len(converted_gov_monitoring_extension)):
             converted_gov_monitoring_extension_details[converted_gov_monitoring_extension[i][0][0].tag] = \
                 converted_gov_monitoring_extension[i][0][0].text
-        self.assertEqual(converted_gov_monitoring_details, actual_gov_monitoring_details)
-        self.assertEqual(converted_gov_monitoring_details_extension, actual_gov_monitoring_details_extension)
-        self.assertEqual(converted_hmda_ethnicity_origin_type, actual_hmda_ethnicity_origin_type)
-        self.assertEqual(converted_hmda_race_type, actual_hmda_race_type)
-        self.assertEqual(converted_gov_monitoring_extension_details, actual_gov_monitoring_extension_details)
+        self.assertEqual(actual_gov_monitoring_details, converted_gov_monitoring_details)
+        self.assertEqual(actual_gov_monitoring_details_extension, converted_gov_monitoring_details_extension)
+        self.assertEqual(actual_hmda_ethnicity_origin_type, converted_hmda_ethnicity_origin_type)
+        self.assertEqual(converted_hmda_race_type, converted_hmda_race_type)
+        self.assertEqual(actual_gov_monitoring_extension_details, converted_gov_monitoring_details_extension)
+
+    def test_party_roles_borrower_residences(self):
+        actual_residence_path = self.actual_roles_path[0][0][6][0]
+        converted_residence_path = self.converted_roles_path[0][0][5][0]
+        actual_address = {x.tag: x.text for x in actual_residence_path.find(f'{self.leadingStr}ADDRESS')}
+        converted_address = {x.tag: x.text for x in converted_residence_path.find(f'{self.leadingStr}ADDRESS')}
+        self.assertEqual(converted_address, actual_address)
+        actual_residence_details = {x.tag: x.text for x in
+                                    actual_residence_path.find(f'{self.leadingStr}RESIDENCE_DETAIL')}
+        converted_residence_details = {x.tag: x.text for x in
+                                       converted_residence_path.find(f'{self.leadingStr}RESIDENCE_DETAIL')}
+        self.assertEqual(actual_residence_details, converted_residence_details)
+
+    def test_party_role_details(self):
+        actual_role_details_path = self.actual_roles_path[0][1][0]
+        converted_role_details_path = self.converted_roles_path[0][1][0]
+        actual_role_details = {x.tag: x.text for x in actual_role_details_path}
+        converted_role_details = {x.tag: x.text for x in converted_role_details_path}
+        self.assertEqual(actual_role_details, converted_role_details)
+
+    def test_party_social_security_number(self):
+        actual_ssn = self.actual_party_path[4][0]
+        converted_ssn = self.converted_party_path[3][0]
+        actual_ssn_details = {x.tag: x.text for x in actual_ssn}
+        converted_ssn_details = {x.tag: x.text for x in converted_ssn}
+        self.assertEqual(actual_ssn_details, converted_ssn_details)
 
 
 if __name__ == '__main__':

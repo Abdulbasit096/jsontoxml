@@ -518,9 +518,9 @@ def borrowerResidence(borrower_tag):
         'PostalCode': checkIfJsonExist(sectionOne, 'borrower_mailing_address_zip'),
         'StateCode': checkIfJsonExist(sectionOne, 'borrower_mailing_address_state'),
     }
-    borrower_residence_tag = ET.SubElement(borrower_tag, 'RESIDENCE')
+    borrower_residence_tag = ET.SubElement(borrower_tag, 'RESIDENCES')
     borrower_residences_tag = ET.SubElement(
-        borrower_residence_tag, 'RESIDENCES')
+        borrower_residence_tag, 'RESIDENCE')
     address_tag = ET.SubElement(borrower_residences_tag, 'ADDRESS')
     for key, value in borrower_address.items():
         if value:
